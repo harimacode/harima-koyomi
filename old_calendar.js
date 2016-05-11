@@ -6,7 +6,7 @@
  * この関数では、グレゴリオ暦による計数となるAD 1582年10月15日
  * 以降のみを対象とします。
  */
-function juliusDate(date) {
+exports.juliusDate = function juliusDate(date) {
     // TODO 上記値域判定
     var year  = date.getFullYear();
     var month = date.getMonth() + 1;
@@ -25,7 +25,7 @@ function juliusDate(date) {
          + 1721088
          + hours / 24;
 }
-function fromJuliusDate(jd) {
+exports.fromJuliusDate = function fromJuliusDate(jd) {
     // http://mysteryart.web.fc2.com/library/calsmpl/cldttojd.html
     jd+=1; // JST
     
@@ -1102,12 +1102,6 @@ function testLunarEclipticLongitude() {
     checkR(82.69589256228039, lunarEclipticLongitude(2449512.7137218565143));
     checkR(112.2766488159473, lunarEclipticLongitude(2449542.3526236737596));
 }
-function testJuliusDate() {
-    // 1994年5月1日 ＝ 2449473
-    checkP(2449473, juliusDate(new Date(1994,4,1))); // Date#month は 0 origin
-    checkDate(new Date(1994,4,1), fromJuliusDate(2449473));
-    checkP(2446056, juliusDate(new Date(1984,11,22))); // Date#month は 0 origin
-}
 function testFindNibunNishi() {
     checkR(2449432.2276343490000000, findNibunNishi(2449472.625)[1]);
     checkDate(new Date(1994,2,21,5,27,48), fromJuliusDate(findNibunNishi(2449472.625)[1]))
@@ -1473,7 +1467,6 @@ function testIsSanrinbou() {
 }
 
 function runTests() {
-    testJuliusDate();
     testDynamicalTime();
     testSolarEclipticLongitude();
     testLunarEclipticLongitude();

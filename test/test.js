@@ -1,10 +1,19 @@
 var assert = require('chai').assert;
+var oc = require('../old_calendar.js');
 
-describe('Array', function() {
-    describe('#indexOf()', function () {
-        it('should return -1 when the value is not present', function () {
-            assert.equal(-1, [1,2,3].indexOf(5));
-            assert.equal(-1, [1,2,3].indexOf(0));
-        });
+function datesAreSameMinute(a, b) {
+    // 分までだけ比較する。
+    return a.getFullYear() == b.getFullYear()
+        && a.getMonth() == b.getMonth()
+        && a.getDate() == b.getDate()
+        && a.getHours() == b.getHours()
+        && a.getMinutes() == b.getMinutes();
+}
+
+describe('juliusDate', function () {
+    it('should return correct julius date #1', function () {
+        assert.equal(2449473, oc.juliusDate(new Date(1994,4,1)), "1994年5月1日 ＝ 2449473");
+        assert.isOk(datesAreSameMinute(new Date(1994,4,1), oc.fromJuliusDate(2449473)));
+        assert.equal(2446056, oc.juliusDate(new Date(1984,11,22)), "Date#month は 0 origin"); 
     });
 });
