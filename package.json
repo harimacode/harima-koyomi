@@ -1,0 +1,19 @@
+{
+  "name": "harima-koyomi",
+  "version": "0.0.1",
+  "description": "",
+  "main": "old_calendar.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harimacode/harima-koyomi.git"
+  },
+  "author": "KENZ",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/harimacode/harima-koyomi/issues"
+  },
+  "homepage": "https://github.com/harimacode/harima-koyomi#readme"
+}
