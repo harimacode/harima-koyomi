@@ -393,3 +393,25 @@ describe('isDoyoEnd', function () {
         assert.equal(oc.isDoyoEnd(oc.juliusDate(new Date(2014,10,6))), '秋土用明');
     });
 });
+describe('isDaysFromRissyun', function () {
+    it('should return if it is 210 days from rissyun', function () {
+        // 二百十日
+        assert.equal(oc.isDaysFromRissyun(210, oc.juliusDate(new Date(2016,7,30))), false);
+        assert.equal(oc.isDaysFromRissyun(210, oc.juliusDate(new Date(2016,7,31))), true);
+        assert.equal(oc.isDaysFromRissyun(210, oc.juliusDate(new Date(2016,8,1))), false);
+        
+        assert.equal(oc.isDaysFromRissyun(210, oc.juliusDate(new Date(2017,8,1))), true);
+        assert.equal(oc.isDaysFromRissyun(210, oc.juliusDate(new Date(2018,8,1))), true);
+        assert.equal(oc.isDaysFromRissyun(210, oc.juliusDate(new Date(2019,8,1))), true);
+    });
+    it('should return if it is 220 days from rissyun', function () {
+        // 二百二十日
+        assert.equal(oc.isDaysFromRissyun(220, oc.juliusDate(new Date(2016,8,9))), false);
+        assert.equal(oc.isDaysFromRissyun(220, oc.juliusDate(new Date(2016,8,10))), true);
+        assert.equal(oc.isDaysFromRissyun(220, oc.juliusDate(new Date(2016,8,11))), false);
+        
+        assert.equal(oc.isDaysFromRissyun(220, oc.juliusDate(new Date(2017,8,11))), true);
+        assert.equal(oc.isDaysFromRissyun(220, oc.juliusDate(new Date(2018,8,11))), true);
+        assert.equal(oc.isDaysFromRissyun(220, oc.juliusDate(new Date(2019,8,11))), true);
+    });
+});

@@ -1073,25 +1073,6 @@ function check(result, a, b) {
         alert("FAILED: " + a + " !≒ " + b);
     }
 }
-function testIsDaysFromRissyun() {
-    // 二百十日
-    checkBool(false, isDaysFromRissyun(210, juliusDate(new Date(2016,7,30))));
-    checkBool(true,  isDaysFromRissyun(210, juliusDate(new Date(2016,7,31))));
-    checkBool(false, isDaysFromRissyun(210, juliusDate(new Date(2016,8,1))));
-    
-    checkBool(true,  isDaysFromRissyun(210, juliusDate(new Date(2017,8,1))));
-    checkBool(true,  isDaysFromRissyun(210, juliusDate(new Date(2018,8,1))));
-    checkBool(true,  isDaysFromRissyun(210, juliusDate(new Date(2019,8,1))));
-
-    // 二百二十日
-    checkBool(false, isDaysFromRissyun(220, juliusDate(new Date(2016,8,9))));
-    checkBool(true,  isDaysFromRissyun(220, juliusDate(new Date(2016,8,10))));
-    checkBool(false, isDaysFromRissyun(220, juliusDate(new Date(2016,8,11))));
-    
-    checkBool(true,  isDaysFromRissyun(220, juliusDate(new Date(2017,8,11))));
-    checkBool(true,  isDaysFromRissyun(220, juliusDate(new Date(2018,8,11))));
-    checkBool(true,  isDaysFromRissyun(220, juliusDate(new Date(2019,8,11))));
-}
 function testJippouGure() {
     checkBool(false, isJippouGureStart(juliusDate(new Date(2014, 4, 12))));
     checkBool(true,  isJippouGureStart(juliusDate(new Date(2014, 4, 13))));
@@ -1148,7 +1129,6 @@ function testIsSanrinbou() {
 }
 
 function runTests() {
-    testIsDaysFromRissyun();
     testJippouGure();
     testTenichiTenjo();
     testIsIchiryuManbai();
@@ -1188,5 +1168,6 @@ module.exports = {
     isNyubai: isNyubai,
     isHangesyo: isHangesyo,
     isDoyoStart: isDoyoStart,
-    isDoyoEnd: isDoyoEnd, 
+    isDoyoEnd: isDoyoEnd,
+    isDaysFromRissyun: isDaysFromRissyun, 
 }
