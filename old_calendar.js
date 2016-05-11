@@ -1073,26 +1073,6 @@ function check(result, a, b) {
         alert("FAILED: " + a + " !≒ " + b);
     }
 }
-function testKyusei() {
-    checkStr("六白", kyusei(juliusDate(new Date(2014,3,16))));
-    checkStr("七赤", kyusei(juliusDate(new Date(2014,3,17))));
-
-    checkStr("八白", kyusei(juliusDate(new Date(2008,11,18))));
-    checkStr("七赤", kyusei(juliusDate(new Date(2008,11,19))));
-    checkStr("七赤", kyusei(juliusDate(new Date(2008,11,20))));
-    checkStr("八白", kyusei(juliusDate(new Date(2008,11,21))));
-
-    checkStr("二黒", kyusei(juliusDate(new Date(1997,5,19))));
-    checkStr("三碧", kyusei(juliusDate(new Date(1997,5,20))));
-    checkStr("三碧", kyusei(juliusDate(new Date(1997,5,21))));
-    checkStr("二黒", kyusei(juliusDate(new Date(1997,5,22))));
-
-    // var r = [];    
-    // for (var i = 0; i < 6; ++i) {
-    //     r.push(kyusei(juliusDate(new Date(1997,5,18+i))));
-    // }
-    // alert(r);
-}
 function testFindSetsugetsu() {
     var s;
     // 2016年3月20日=春分→2月節、3/5
@@ -1315,7 +1295,6 @@ function testIsSanrinbou() {
 }
 
 function runTests() {
-    testKyusei();
     testFindSetsugetsu();
     testChoku();
     testShuku();
@@ -1354,4 +1333,5 @@ module.exports = {
     rokki: rokki,
     OldDate: OldDate,
     eto: eto,
+    kyusei: kyusei,
 }

@@ -186,3 +186,25 @@ describe('eto', function () {
         assert.equal(oc.eto(oc.juliusDate(new Date(2014,3,19))), '庚申');
     });
 });
+describe('kyusei', function () {
+    it('should return correct kyuseis', function () {
+        assert.equal(oc.kyusei(oc.juliusDate(new Date(2014,3,16))), '六白');
+        assert.equal(oc.kyusei(oc.juliusDate(new Date(2014,3,17))), '七赤');
+
+        assert.equal(oc.kyusei(oc.juliusDate(new Date(2008,11,18))), '八白');
+        assert.equal(oc.kyusei(oc.juliusDate(new Date(2008,11,19))), '七赤');
+        assert.equal(oc.kyusei(oc.juliusDate(new Date(2008,11,20))), '七赤');
+        assert.equal(oc.kyusei(oc.juliusDate(new Date(2008,11,21))), '八白');
+
+        assert.equal(oc.kyusei(oc.juliusDate(new Date(1997,5,19))), '二黒');
+        assert.equal(oc.kyusei(oc.juliusDate(new Date(1997,5,20))), '三碧');
+        assert.equal(oc.kyusei(oc.juliusDate(new Date(1997,5,21))), '三碧');
+        assert.equal(oc.kyusei(oc.juliusDate(new Date(1997,5,22))), '二黒');
+
+        // var r = [];    
+        // for (var i = 0; i < 6; ++i) {
+        //     r.push(kyusei(juliusDate(new Date(1997,5,18+i))));
+        // }
+        // alert(r);
+    });
+});
