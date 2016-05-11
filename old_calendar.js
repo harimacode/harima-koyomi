@@ -1073,15 +1073,6 @@ function check(result, a, b) {
         alert("FAILED: " + a + " !≒ " + b);
     }
 }
-function testHigan() {
-    checkBool(false, isHiganStart(juliusDate(new Date(2014,8,19))));
-    checkBool(true,  isHiganStart(juliusDate(new Date(2014,8,20))));
-    checkBool(false, isHiganStart(juliusDate(new Date(2014,8,21))));
-    
-    checkBool(false, isHiganEnd(juliusDate(new Date(2014,8,25))));
-    checkBool(true,  isHiganEnd(juliusDate(new Date(2014,8,26))));
-    checkBool(false, isHiganEnd(juliusDate(new Date(2014,8,27))));
-}
 function testIsSyanichi() {
     checkStr("", isSyanichi(juliusDate(new Date(2007,2,24))));
     checkStr("社日(春)", isSyanichi(juliusDate(new Date(2007,2,25))));
@@ -1234,7 +1225,6 @@ function testIsSanrinbou() {
 }
 
 function runTests() {
-    testHigan();
     testIsSyanichi();
     testIsSanpuku();
     testIsNyubai();
@@ -1273,4 +1263,6 @@ module.exports = {
     nijuShisekki: nijuShisekki,
     isSetsubun: isSetsubun,
     isHachijuHachiya: isHachijuHachiya,
+    isHiganStart: isHiganStart,
+    isHiganEnd: isHiganEnd, 
 }

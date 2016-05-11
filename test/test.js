@@ -283,3 +283,17 @@ describe('isHachijuHachiya', function () {
         assert.equal(oc.isHachijuHachiya(oc.juliusDate(new Date(2019,4,2))), true);
     });
 });
+describe('isHiganStart', function () {
+    it('should return if it is the start day of higan', function () {
+        assert.equal(oc.isHiganStart(oc.juliusDate(new Date(2014,8,19))), false);
+        assert.equal(oc.isHiganStart(oc.juliusDate(new Date(2014,8,20))), true);
+        assert.equal(oc.isHiganStart(oc.juliusDate(new Date(2014,8,21))), false);
+    });
+});
+describe('isHiganEnd', function () {
+    it('should return if it is the end day of higan', function () {
+        assert.equal(oc.isHiganEnd(oc.juliusDate(new Date(2014,8,25))), false);
+        assert.equal(oc.isHiganEnd(oc.juliusDate(new Date(2014,8,26))), true);
+        assert.equal(oc.isHiganEnd(oc.juliusDate(new Date(2014,8,27))), false);
+    });
+});
