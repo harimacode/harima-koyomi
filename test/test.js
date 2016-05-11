@@ -261,3 +261,14 @@ describe('nijuShisekki', function () {
         assert.isNotOk(oc.nijuShisekki(oc.juliusDate(new Date(2014,4,6))));
     });
 });
+describe('isSetsubun', function () {
+    it('should return if it is setsubun', function () {
+        assert.equal(oc.isSetsubun(oc.juliusDate(new Date(2016,1,2))), false);
+        assert.equal(oc.isSetsubun(oc.juliusDate(new Date(2016,1,4))), false);
+        assert.equal(oc.isSetsubun(oc.juliusDate(new Date(2016,1,3))), true);
+
+        assert.equal(oc.isSetsubun(oc.juliusDate(new Date(2025,1,1))), false);
+        assert.equal(oc.isSetsubun(oc.juliusDate(new Date(2025,1,2))), true);
+        assert.equal(oc.isSetsubun(oc.juliusDate(new Date(2025,1,3))), false);
+    });
+});
