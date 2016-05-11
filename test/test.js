@@ -93,3 +93,49 @@ describe('findChukis', function () {
         } 
     });
 });
+describe('findSaku', function () {
+    it('should find a saku correctly', function () {
+        var saku = oc.findSaku(2449431.85263434904943);
+        assert.approximately(saku, 2449423.6706510314940, DELTA_R);
+        // alert(fromJuliusDate(saku));
+    });
+});
+describe('findSakus', function () {
+    it('should find sakus correctly', function () {
+        var sakus = oc.findSakus(2449431.85263434904943);
+        var answers = [
+            2449423.6706510314940,
+            2449453.3876378879538,
+            2449483.0887218565143,
+            2449512.7276236737596,
+            2449542.2768841335603,
+        ];
+        for (var i = 0; i < answers.length; ++i) {
+            assert.approximately(sakus[i], answers[i], DELTA_R);
+        } 
+
+        var sakus2 = oc.findSakus(oc.findNibunNishi(oc.juliusDate(new Date(1993,4,1)))[1]);
+        var answers2 = [
+            2449039.9209,
+            2449069.6773,
+            2449099.3680,
+            2449128.9637,
+            2449158.4540,
+        ];
+        for (var i = 0; i < answers2.length; ++i) {
+            assert.approximately(sakus2[i], answers2[i], DELTA_R);
+        }
+        
+        var sakus3 = oc.findSakus(oc.findNibunNishi(oc.juliusDate(new Date(1985,0,1)))[1]);
+        var answers3 = [
+            2446056.8671,
+            2446086.4793,
+            2446116.1560,
+            2446145.8755,
+            2446175.6000,
+        ];
+        for (var i = 0; i < answers3.length; ++i) {
+            assert.approximately(sakus3[i], answers3[i], DELTA_R);
+        } 
+    });
+});

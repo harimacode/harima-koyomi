@@ -1073,47 +1073,6 @@ function check(result, a, b) {
         alert("FAILED: " + a + " !≒ " + b);
     }
 }
-function testFindSaku() {
-    var saku = findSaku(2449431.85263434904943); 
-    checkR(2449423.6706510314940, saku);
-    // alert(fromJuliusDate(saku));
-    
-    var sakus = findSakus(2449431.85263434904943);
-    var answers = [
-        2449423.6706510314940,
-        2449453.3876378879538,
-        2449483.0887218565143,
-        2449512.7276236737596,
-        2449542.2768841335603,
-    ];
-    for (var i = 0; i < answers.length; ++i) {
-        checkR(answers[i], sakus[i]);
-    } 
-
-    var sakus2 = findSakus(findNibunNishi(juliusDate(new Date(1993,4,1)))[1]);
-    var answers2 = [
-        2449039.9209,
-        2449069.6773,
-        2449099.3680,
-        2449128.9637,
-        2449158.4540,
-    ];
-    for (var i = 0; i < answers2.length; ++i) {
-        checkR(answers2[i], sakus2[i]);
-    }
-    
-    var sakus3 = findSakus(findNibunNishi(juliusDate(new Date(1985,0,1)))[1]);
-    var answers3 = [
-        2446056.8671,
-        2446086.4793,
-        2446116.1560,
-        2446145.8755,
-        2446175.6000,
-    ];
-    for (var i = 0; i < answers3.length; ++i) {
-        checkR(answers3[i], sakus3[i]);
-    } 
-}
 function testOldCalendar() {
     // 1994年5月1日
     checkStr("3月21日", oldCalendar(juliusDate(new Date(1994,4,1))).toString());
@@ -1401,7 +1360,6 @@ function testIsSanrinbou() {
 }
 
 function runTests() {
-    testFindSaku();
     testOldCalendar();
     testRokki();
     testEto();
@@ -1438,4 +1396,6 @@ module.exports = {
     findNibunNishi: findNibunNishi,
     findSeason: findSeason,
     findChukis: findChukis,
+    findSaku: findSaku,
+    findSakus: findSakus,
 }
