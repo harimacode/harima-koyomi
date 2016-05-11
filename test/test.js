@@ -256,9 +256,9 @@ describe('nattin', function () {
 });
 describe('nijuShisekki', function () {
     it('should return correct 24-sekki', function () {
-        assert.isNotOk(oc.nijuShisekki(oc.juliusDate(new Date(2014,4,4))));
+        assert.equal(oc.nijuShisekki(oc.juliusDate(new Date(2014,4,4))), '');
         assert.equal(oc.nijuShisekki(oc.juliusDate(new Date(2014,4,5))), '立夏');
-        assert.isNotOk(oc.nijuShisekki(oc.juliusDate(new Date(2014,4,6))));
+        assert.equal(oc.nijuShisekki(oc.juliusDate(new Date(2014,4,6))), '');
     });
 });
 describe('isSetsubun', function () {
@@ -295,5 +295,34 @@ describe('isHiganEnd', function () {
         assert.equal(oc.isHiganEnd(oc.juliusDate(new Date(2014,8,25))), false);
         assert.equal(oc.isHiganEnd(oc.juliusDate(new Date(2014,8,26))), true);
         assert.equal(oc.isHiganEnd(oc.juliusDate(new Date(2014,8,27))), false);
+    });
+});
+describe('isSyanichi', function () {
+    it('should return if it is spring syanichi', function () {
+        assert.equal(oc.isSyanichi(oc.juliusDate(new Date(2007,2,24))), '');
+        assert.equal(oc.isSyanichi(oc.juliusDate(new Date(2007,2,25))), '社日(春)');
+        assert.equal(oc.isSyanichi(oc.juliusDate(new Date(2007,2,26))), '');
+
+        assert.equal(oc.isSyanichi(oc.juliusDate(new Date(2008,2,19))), '社日(春)');
+        assert.equal(oc.isSyanichi(oc.juliusDate(new Date(2009,2,24))), '社日(春)');
+        assert.equal(oc.isSyanichi(oc.juliusDate(new Date(2010,2,19))), '社日(春)');
+        assert.equal(oc.isSyanichi(oc.juliusDate(new Date(2011,2,24))), '社日(春)');
+        assert.equal(oc.isSyanichi(oc.juliusDate(new Date(2012,2,18))), '社日(春)');
+        assert.equal(oc.isSyanichi(oc.juliusDate(new Date(2013,2,23))), '社日(春)');
+        assert.equal(oc.isSyanichi(oc.juliusDate(new Date(2014,2,18))), '社日(春)');
+
+    });
+    it('should return if it is fall syanichi', function () {
+        assert.equal(oc.isSyanichi(oc.juliusDate(new Date(2007,8,20))), '');
+        assert.equal(oc.isSyanichi(oc.juliusDate(new Date(2007,8,21))), '社日(秋)');
+        assert.equal(oc.isSyanichi(oc.juliusDate(new Date(2007,8,22))), '');
+
+        assert.equal(oc.isSyanichi(oc.juliusDate(new Date(2008,8,25))), '社日(秋)');
+        assert.equal(oc.isSyanichi(oc.juliusDate(new Date(2009,8,20))), '社日(秋)');
+        assert.equal(oc.isSyanichi(oc.juliusDate(new Date(2010,8,25))), '社日(秋)');
+        assert.equal(oc.isSyanichi(oc.juliusDate(new Date(2011,8,20))), '社日(秋)');
+        assert.equal(oc.isSyanichi(oc.juliusDate(new Date(2012,8,24))), '社日(秋)');
+        assert.equal(oc.isSyanichi(oc.juliusDate(new Date(2013,8,19))), '社日(秋)');
+        assert.equal(oc.isSyanichi(oc.juliusDate(new Date(2014,8,24))), '社日(秋)');
     });
 });

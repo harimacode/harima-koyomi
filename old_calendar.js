@@ -1073,31 +1073,6 @@ function check(result, a, b) {
         alert("FAILED: " + a + " !≒ " + b);
     }
 }
-function testIsSyanichi() {
-    checkStr("", isSyanichi(juliusDate(new Date(2007,2,24))));
-    checkStr("社日(春)", isSyanichi(juliusDate(new Date(2007,2,25))));
-    checkStr("", isSyanichi(juliusDate(new Date(2007,2,26))));
-
-    checkStr("", isSyanichi(juliusDate(new Date(2007,8,20))));
-    checkStr("社日(秋)", isSyanichi(juliusDate(new Date(2007,8,21))));
-    checkStr("", isSyanichi(juliusDate(new Date(2007,8,22))));
-
-    checkStr("社日(春)", isSyanichi(juliusDate(new Date(2008,2,19))));
-    checkStr("社日(春)", isSyanichi(juliusDate(new Date(2009,2,24))));
-    checkStr("社日(春)", isSyanichi(juliusDate(new Date(2010,2,19))));
-    checkStr("社日(春)", isSyanichi(juliusDate(new Date(2011,2,24))));
-    checkStr("社日(春)", isSyanichi(juliusDate(new Date(2012,2,18))));
-    checkStr("社日(春)", isSyanichi(juliusDate(new Date(2013,2,23))));
-    checkStr("社日(春)", isSyanichi(juliusDate(new Date(2014,2,18))));
-
-    checkStr("社日(秋)", isSyanichi(juliusDate(new Date(2008,8,25))));
-    checkStr("社日(秋)", isSyanichi(juliusDate(new Date(2009,8,20))));
-    checkStr("社日(秋)", isSyanichi(juliusDate(new Date(2010,8,25))));
-    checkStr("社日(秋)", isSyanichi(juliusDate(new Date(2011,8,20))));
-    checkStr("社日(秋)", isSyanichi(juliusDate(new Date(2012,8,24))));
-    checkStr("社日(秋)", isSyanichi(juliusDate(new Date(2013,8,19))));
-    checkStr("社日(秋)", isSyanichi(juliusDate(new Date(2014,8,24))));
-}
 function testIsSanpuku() {
     checkStr("", isSanpuku(juliusDate(new Date(2016,6,16))));
     checkStr("初伏", isSanpuku(juliusDate(new Date(2016,6,17))));
@@ -1225,7 +1200,6 @@ function testIsSanrinbou() {
 }
 
 function runTests() {
-    testIsSyanichi();
     testIsSanpuku();
     testIsNyubai();
     testIsHangesyo();
@@ -1264,5 +1238,6 @@ module.exports = {
     isSetsubun: isSetsubun,
     isHachijuHachiya: isHachijuHachiya,
     isHiganStart: isHiganStart,
-    isHiganEnd: isHiganEnd, 
+    isHiganEnd: isHiganEnd,
+    isSyanichi: isSyanichi, 
 }
