@@ -1073,12 +1073,6 @@ function check(result, a, b) {
         alert("FAILED: " + a + " !≒ " + b);
     }
 }
-function testChoku() {
-    checkStr("除", choku(juliusDate(new Date(2014,3,16))));
-    checkStr("危", choku(juliusDate(new Date(2014,4,4))));
-    checkStr("危", choku(juliusDate(new Date(2014,4,5))));
-    checkStr("除", choku(juliusDate(new Date(2014,3,16,12)))); // jd が整数とならないパターン
-}
 function testShuku() {
     checkStr("心", shuku(oldCalendar(juliusDate(new Date(2014,3,16)))));
     checkStr("尾", shuku(oldCalendar(juliusDate(new Date(2014,3,17)))));
@@ -1274,7 +1268,6 @@ function testIsSanrinbou() {
 }
 
 function runTests() {
-    testChoku();
     testShuku();
     testNattin();
     testNijuShisekki();
@@ -1313,4 +1306,5 @@ module.exports = {
     eto: eto,
     kyusei: kyusei,
     findSetsugetsu: findSetsugetsu,
+    choku: choku,
 }

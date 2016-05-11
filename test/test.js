@@ -231,3 +231,12 @@ describe('findSetsugetsu', function () {
         assert.isOk(datesAreSameMinute(oc.fromJuliusDate(Math.floor(s[1])), new Date(2016,2,5)), '3/5'); 
     });
 });
+describe('choku', function () {
+    it('should return correct choku', function () {
+        assert.equal(oc.choku(oc.juliusDate(new Date(2014,3,16))), '除');
+        assert.equal(oc.choku(oc.juliusDate(new Date(2014,4,4))), '危');
+        assert.equal(oc.choku(oc.juliusDate(new Date(2014,4,5))), '危');
+        assert.equal(oc.choku(oc.juliusDate(new Date(2014,3,16,12))), '除', 'jd が整数とならないパターン'); 
+    });
+});
+
