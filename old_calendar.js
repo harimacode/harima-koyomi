@@ -1073,11 +1073,6 @@ function check(result, a, b) {
         alert("FAILED: " + a + " !≒ " + b);
     }
 }
-function testNijuShisekki() {
-    checkStr("", nijuShisekki(juliusDate(new Date(2014,4,4))));
-    checkStr("立夏", nijuShisekki(juliusDate(new Date(2014,4,5))));
-    checkStr("", nijuShisekki(juliusDate(new Date(2014,4,6))));
-}
 function testIsSetsubun() {
     checkBool(false, isSetsubun(juliusDate(new Date(2016,1,2))));
     checkBool(true,  isSetsubun(juliusDate(new Date(2016,1,3))));
@@ -1257,7 +1252,6 @@ function testIsSanrinbou() {
 }
 
 function runTests() {
-    testNijuShisekki();
     testIsSetsubun();
     testIsHachijuHachiya();
     testHigan();
@@ -1296,4 +1290,5 @@ module.exports = {
     choku: choku,
     shuku: shuku,
     nattin: nattin,
+    nijuShisekki: nijuShisekki,
 }

@@ -254,3 +254,10 @@ describe('nattin', function () {
         assert.equal(oc.nattin(oc.juliusDate(new Date(2014,3,17))), '天上火');
     });
 });
+describe('nijuShisekki', function () {
+    it('should return correct 24-sekki', function () {
+        assert.isNotOk(oc.nijuShisekki(oc.juliusDate(new Date(2014,4,4))));
+        assert.equal(oc.nijuShisekki(oc.juliusDate(new Date(2014,4,5))), '立夏');
+        assert.isNotOk(oc.nijuShisekki(oc.juliusDate(new Date(2014,4,6))));
+    });
+});
