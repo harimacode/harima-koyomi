@@ -248,3 +248,9 @@ describe('shuku', function () {
         assert.equal(oc.shuku(oc.oldCalendar(oc.juliusDate(new Date(2014,4,13)))), '心');
     });
 });
+describe('nattin', function () {
+    it('should return correct nattin', function () {
+        assert.equal(oc.nattin(oc.juliusDate(new Date(2014,3,16))), '沙中土');
+        assert.equal(oc.nattin(oc.juliusDate(new Date(2014,3,17))), '天上火');
+    });
+});
