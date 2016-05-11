@@ -1073,27 +1073,6 @@ function check(result, a, b) {
         alert("FAILED: " + a + " !≒ " + b);
     }
 }
-function testFindSetsugetsu() {
-    var s;
-    // 2016年3月20日=春分→2月節、3/5
-    s = findSetsugetsu(juliusDate(new Date(2016,2,20)));
-    checkP(2, s[0]); // 2月節
-    checkDate(new Date(2016,2,5), fromJuliusDate(Math.floor(s[1]))); // 3/5
-    
-    // 2016年4月20日=穀雨→3月節、4/4
-    s = findSetsugetsu(juliusDate(new Date(2016,3,20)));
-    checkP(3, s[0]); // 3月節
-    checkDate(new Date(2016,3,4), fromJuliusDate(Math.floor(s[1]))); // 4/4
-    
-    // 2016年3月4日=1月節,2/4
-    s = findSetsugetsu(juliusDate(new Date(2016,2,4)));
-    checkP(1, s[0]); // 2月節
-    checkDate(new Date(2016,1,4), fromJuliusDate(Math.floor(s[1]))); // 2/4
-    // 2016年3月5日=2月節,3/5
-    s = findSetsugetsu(juliusDate(new Date(2016,2,5)));
-    checkP(2, s[0]); // 2月節
-    checkDate(new Date(2016,2,5), fromJuliusDate(Math.floor(s[1]))); // 3/5
-}
 function testChoku() {
     checkStr("除", choku(juliusDate(new Date(2014,3,16))));
     checkStr("危", choku(juliusDate(new Date(2014,4,4))));
@@ -1295,7 +1274,6 @@ function testIsSanrinbou() {
 }
 
 function runTests() {
-    testFindSetsugetsu();
     testChoku();
     testShuku();
     testNattin();
@@ -1334,4 +1312,5 @@ module.exports = {
     OldDate: OldDate,
     eto: eto,
     kyusei: kyusei,
+    findSetsugetsu: findSetsugetsu,
 }

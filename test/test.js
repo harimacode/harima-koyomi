@@ -208,3 +208,26 @@ describe('kyusei', function () {
         // alert(r);
     });
 });
+describe('findSetsugetsu', function () {
+    it('should find setsugetsu correctly', function () {
+        var s;
+        // 2016年3月20日=春分→2月節、3/5
+        s = oc.findSetsugetsu(oc.juliusDate(new Date(2016,2,20)));
+        assert.equal(s[0], 2, '2月節');
+        assert.isOk(datesAreSameMinute(oc.fromJuliusDate(Math.floor(s[1])), new Date(2016,2,5)), '3/5'); 
+        
+        // 2016年4月20日=穀雨→3月節、4/4
+        s = oc.findSetsugetsu(oc.juliusDate(new Date(2016,3,20)));
+        assert.equal(s[0], 3, '3月節');
+        assert.isOk(datesAreSameMinute(oc.fromJuliusDate(Math.floor(s[1])), new Date(2016,3,4)), '4/4'); 
+        
+        // 2016年3月4日=1月節,2/4
+        s = oc.findSetsugetsu(oc.juliusDate(new Date(2016,2,4)));
+        assert.equal(s[0], 1, '1月節');
+        assert.isOk(datesAreSameMinute(oc.fromJuliusDate(Math.floor(s[1])), new Date(2016,1,4)), '2/4'); 
+        // 2016年3月5日=2月節,3/5
+        s = oc.findSetsugetsu(oc.juliusDate(new Date(2016,2,5)));
+        assert.equal(s[0], 2, '2月節');
+        assert.isOk(datesAreSameMinute(oc.fromJuliusDate(Math.floor(s[1])), new Date(2016,2,5)), '3/5'); 
+    });
+});
