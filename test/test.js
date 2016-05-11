@@ -349,3 +349,14 @@ describe('isSanpuku', function () {
         assert.equal(oc.isSanpuku(oc.juliusDate(new Date(2014,7,7))), '末伏');
     });
 });
+describe('isNyubai', function () {
+    it('should return if it is nyubai', function () {
+        assert.equal(oc.isNyubai(oc.juliusDate(new Date(2016,5,9))), false);
+        assert.equal(oc.isNyubai(oc.juliusDate(new Date(2016,5,10))), true);
+        assert.equal(oc.isNyubai(oc.juliusDate(new Date(2016,5,11))), false);
+
+        assert.equal(oc.isNyubai(oc.juliusDate(new Date(2014,5,10))), false);
+        assert.equal(oc.isNyubai(oc.juliusDate(new Date(2014,5,11))), true);
+        assert.equal(oc.isNyubai(oc.juliusDate(new Date(2014,5,12))), false);
+    });
+});

@@ -1073,15 +1073,6 @@ function check(result, a, b) {
         alert("FAILED: " + a + " !≒ " + b);
     }
 }
-function testIsNyubai() {
-    checkBool(false, isNyubai(juliusDate(new Date(2016,5,9))));
-    checkBool(true,  isNyubai(juliusDate(new Date(2016,5,10))));
-    checkBool(false, isNyubai(juliusDate(new Date(2016,5,11))));
-
-    checkBool(false, isNyubai(juliusDate(new Date(2014,5,10))));
-    checkBool(true,  isNyubai(juliusDate(new Date(2014,5,11))));
-    checkBool(false, isNyubai(juliusDate(new Date(2014,5,12))));
-}
 function testIsHangesyo() {
     checkBool(false, isHangesyo(juliusDate(new Date(2014,6,1))));
     checkBool(true,  isHangesyo(juliusDate(new Date(2014,6,2))));
@@ -1183,7 +1174,6 @@ function testIsSanrinbou() {
 }
 
 function runTests() {
-    testIsNyubai();
     testIsHangesyo();
     testDoyo();
     testIsDaysFromRissyun();
@@ -1222,5 +1212,6 @@ module.exports = {
     isHiganStart: isHiganStart,
     isHiganEnd: isHiganEnd,
     isSyanichi: isSyanichi,
-    isSanpuku: isSanpuku, 
+    isSanpuku: isSanpuku,
+    isNyubai: isNyubai, 
 }
