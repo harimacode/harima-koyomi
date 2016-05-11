@@ -97,7 +97,7 @@ exports.solarEclipticLongitude = function solarEclipticLongitude(juliusDateDynam
  * @param juliusDateDynamicalTime 力学時
  * @return 月の黄経を表す浮動小数点数
  */
-function lunarEclipticLongitude(juliusDateDynamicalTime) {
+exports.lunarEclipticLongitude = function lunarEclipticLongitude(juliusDateDynamicalTime) {
     // TODO 共通化
     var t = (juliusDateDynamicalTime + 0.5 - 2451545.0) / 36525;
     //           63
@@ -1073,17 +1073,6 @@ function check(result, a, b) {
         alert("FAILED: " + a + " !≒ " + b);
     }
 }
-function testLunarEclipticLongitude() {
-    // FIXME: 精度が 0.0001 程度しかなく、低すぎる気がするので
-    // 計算部分に見直しが必要かも。
-    
-    // 文献中の例から。
-    checkR(93.93361186916204, lunarEclipticLongitude(2449431.85263434904943));
-    checkR(24.23809602459182, lunarEclipticLongitude(2449453.295651030494));
-    checkR(53.34937446649215, lunarEclipticLongitude(2449483.01263787953888));
-    checkR(82.69589256228039, lunarEclipticLongitude(2449512.7137218565143));
-    checkR(112.2766488159473, lunarEclipticLongitude(2449542.3526236737596));
-}
 function testFindNibunNishi() {
     checkR(2449432.2276343490000000, findNibunNishi(2449472.625)[1]);
     checkDate(new Date(1994,2,21,5,27,48), fromJuliusDate(findNibunNishi(2449472.625)[1]))
@@ -1449,7 +1438,6 @@ function testIsSanrinbou() {
 }
 
 function runTests() {
-    testLunarEclipticLongitude();
     testFindNibunNishi();
     testFindSeason();
     testFindChukis();
