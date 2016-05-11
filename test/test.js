@@ -58,3 +58,15 @@ describe('findNibunNishi', function () {
         assert.approximately(oc.findNibunNishi(oc.juliusDate(new Date(1984,11,23)))[1], 2446056.0489, DELTA_R);
     });
 });
+describe('findSeason', function () {
+    it('should find seasons correctly', function () {
+        assert.equal(oc.findSeason(oc.juliusDate(new Date(2016, 1, 3))), 3);
+        assert.equal(oc.findSeason(oc.juliusDate(new Date(2016, 1, 4))), 0, '2016年2月4日 は春'); 
+        assert.equal(oc.findSeason(oc.juliusDate(new Date(2016, 4, 4))), 0);
+        assert.equal(oc.findSeason(oc.juliusDate(new Date(2016, 4, 5))), 1, '2016年5月5日 は夏'); 
+        assert.equal(oc.findSeason(oc.juliusDate(new Date(2016, 7, 6))), 1);
+        assert.equal(oc.findSeason(oc.juliusDate(new Date(2016, 7, 7))), 2, '2016年8月7日 は秋'); 
+        assert.equal(oc.findSeason(oc.juliusDate(new Date(2016, 10, 6))), 2);
+        assert.equal(oc.findSeason(oc.juliusDate(new Date(2016, 10, 7))), 3, '2016年11月7日 は冬'); 
+    });
+});

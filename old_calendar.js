@@ -1073,16 +1073,6 @@ function check(result, a, b) {
         alert("FAILED: " + a + " !≒ " + b);
     }
 }
-function testFindSeason() {
-    checkP(3, findSeason(juliusDate(new Date(2016, 1, 3))));
-    checkP(0, findSeason(juliusDate(new Date(2016, 1, 4))));  // 2016年2月4日 は春
-    checkP(0, findSeason(juliusDate(new Date(2016, 4, 4))));
-    checkP(1, findSeason(juliusDate(new Date(2016, 4, 5))));  // 2016年5月5日 は夏
-    checkP(1, findSeason(juliusDate(new Date(2016, 7, 6))));
-    checkP(2, findSeason(juliusDate(new Date(2016, 7, 7))));  // 2016年8月7日 は秋
-    checkP(2, findSeason(juliusDate(new Date(2016, 10, 6))));
-    checkP(3, findSeason(juliusDate(new Date(2016, 10, 7)))); // 2016年11月7日 は冬
-}
 function testFindChukis() {
     var result = findChukis(2449432.2276343490);
     var answers = [
@@ -1433,7 +1423,6 @@ function testIsSanrinbou() {
 }
 
 function runTests() {
-    testFindSeason();
     testFindChukis();
     testFindSaku();
     testOldCalendar();
@@ -1470,4 +1459,5 @@ module.exports = {
     solarEclipticLongitude: solarEclipticLongitude,
     lunarEclipticLongitude: lunarEclipticLongitude, 
     findNibunNishi: findNibunNishi,
+    findSeason: findSeason,
 }
