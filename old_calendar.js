@@ -1073,23 +1073,6 @@ function check(result, a, b) {
         alert("FAILED: " + a + " !≒ " + b);
     }
 }
-function testIsSanpuku() {
-    checkStr("", isSanpuku(juliusDate(new Date(2016,6,16))));
-    checkStr("初伏", isSanpuku(juliusDate(new Date(2016,6,17))));
-    checkStr("", isSanpuku(juliusDate(new Date(2016,6,18))));
-
-    checkStr("", isSanpuku(juliusDate(new Date(2016,6,26))));
-    checkStr("中伏", isSanpuku(juliusDate(new Date(2016,6,27))));
-    checkStr("", isSanpuku(juliusDate(new Date(2016,6,28))));
-
-    checkStr("", isSanpuku(juliusDate(new Date(2016,7,15))));
-    checkStr("末伏", isSanpuku(juliusDate(new Date(2016,7,16))));
-    checkStr("", isSanpuku(juliusDate(new Date(2016,7,17))));
-
-    checkStr("初伏", isSanpuku(juliusDate(new Date(2014,6,18))));
-    checkStr("中伏", isSanpuku(juliusDate(new Date(2014,6,28))));
-    checkStr("末伏", isSanpuku(juliusDate(new Date(2014,7,7))));
-}
 function testIsNyubai() {
     checkBool(false, isNyubai(juliusDate(new Date(2016,5,9))));
     checkBool(true,  isNyubai(juliusDate(new Date(2016,5,10))));
@@ -1200,7 +1183,6 @@ function testIsSanrinbou() {
 }
 
 function runTests() {
-    testIsSanpuku();
     testIsNyubai();
     testIsHangesyo();
     testDoyo();
@@ -1239,5 +1221,6 @@ module.exports = {
     isHachijuHachiya: isHachijuHachiya,
     isHiganStart: isHiganStart,
     isHiganEnd: isHiganEnd,
-    isSyanichi: isSyanichi, 
+    isSyanichi: isSyanichi,
+    isSanpuku: isSanpuku, 
 }

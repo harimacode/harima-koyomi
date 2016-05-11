@@ -326,3 +326,26 @@ describe('isSyanichi', function () {
         assert.equal(oc.isSyanichi(oc.juliusDate(new Date(2014,8,24))), '社日(秋)');
     });
 });
+describe('isSanpuku', function () {
+    it('should return if it is syofuku', function () {
+        assert.equal(oc.isSanpuku(oc.juliusDate(new Date(2016,6,16))), '');
+        assert.equal(oc.isSanpuku(oc.juliusDate(new Date(2016,6,17))), '初伏');
+        assert.equal(oc.isSanpuku(oc.juliusDate(new Date(2016,6,18))), '');
+
+        assert.equal(oc.isSanpuku(oc.juliusDate(new Date(2014,6,18))), '初伏');
+    });
+    it('should return if it is chufuku', function () {
+        assert.equal(oc.isSanpuku(oc.juliusDate(new Date(2016,6,26))), '');
+        assert.equal(oc.isSanpuku(oc.juliusDate(new Date(2016,6,27))), '中伏');
+        assert.equal(oc.isSanpuku(oc.juliusDate(new Date(2016,6,28))), '');
+
+        assert.equal(oc.isSanpuku(oc.juliusDate(new Date(2014,6,28))), '中伏');
+    });
+    it('should return if it is mappuku', function () {
+        assert.equal(oc.isSanpuku(oc.juliusDate(new Date(2016,7,15))), '');
+        assert.equal(oc.isSanpuku(oc.juliusDate(new Date(2016,7,16))), '末伏');
+        assert.equal(oc.isSanpuku(oc.juliusDate(new Date(2016,7,17))), '');
+
+        assert.equal(oc.isSanpuku(oc.juliusDate(new Date(2014,7,7))), '末伏');
+    });
+});
