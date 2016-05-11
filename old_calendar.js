@@ -1041,39 +1041,6 @@ function tagsForDate(date, moon) {
     return tags;
 }
 
-// precisely に比較する
-function checkP(a, b) {
-    return checkFloat(a, b, 0.00000000001);
-}
-// roughly に比較する
-function checkR(a, b) {
-    return checkFloat(a, b, 0.0001);
-}
-function checkFloat(a, b, tolerance) {
-    var result = Math.abs(a - b) < tolerance;
-    check(result, a, b);
-}
-function checkBool(a, b) {
-    check(a == b, a, b);
-}
-function checkDate(a, b) {
-    // 分までだけ比較する。
-    var result = a.getFullYear() == b.getFullYear()
-        && a.getMonth() == b.getMonth()
-        && a.getDate() == b.getDate()
-        && a.getHours() == b.getHours()
-        && a.getMinutes() == b.getMinutes();
-    check(result, a, b);
-}
-function checkStr(a, b) {
-    check(a === b, a, b);
-}
-function check(result, a, b) {
-    if (!result) {
-        alert("FAILED: " + a + " !≒ " + b);
-    }
-}
-
 module.exports = {
     juliusDate: juliusDate,
     fromJuliusDate: fromJuliusDate,
