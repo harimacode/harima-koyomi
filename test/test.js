@@ -70,3 +70,26 @@ describe('findSeason', function () {
         assert.equal(oc.findSeason(oc.juliusDate(new Date(2016, 10, 7))), 3, '2016年11月7日 は冬'); 
     });
 });
+describe('findChukis', function () {
+    it('should find chukis correctly', function () {
+        var result = oc.findChukis(2449432.2276343490);
+        var answers = [
+            2449462.6910369310000,
+            2449493.6580418450000,
+            2449524.9906033690000,
+        ];
+        for (var i = 0; i < answers.length; ++i) {
+            assert.approximately(result[i], answers[i], DELTA_R);
+        } 
+        
+        var result2 = oc.findChukis(oc.findNibunNishi(oc.juliusDate(new Date(1993,4,1)))[1]);
+        var answers2 = [
+            2449097.4502,
+            2449128.4174,
+            2449159.7497,
+        ];
+        for (var i = 0; i < answers2.length; ++i) {
+            assert.approximately(result2[i], answers2[i], DELTA_R);
+        } 
+    });
+});

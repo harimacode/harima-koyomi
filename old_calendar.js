@@ -1073,28 +1073,6 @@ function check(result, a, b) {
         alert("FAILED: " + a + " !≒ " + b);
     }
 }
-function testFindChukis() {
-    var result = findChukis(2449432.2276343490);
-    var answers = [
-        2449462.6910369310000,
-        2449493.6580418450000,
-        2449524.9906033690000,
-    ];
-    for (var i = 0; i < answers.length; ++i) {
-        checkR(answers[i], result[i]);
-    } 
-    
-    var result2 = findChukis(findNibunNishi(juliusDate(new Date(1993,4,1)))[1]);
-    var answers2 = [
-        2449097.4502,
-        2449128.4174,
-        2449159.7497,
-    ];
-    for (var i = 0; i < answers2.length; ++i) {
-        checkR(answers2[i], result2[i]);
-    } 
-
-}
 function testFindSaku() {
     var saku = findSaku(2449431.85263434904943); 
     checkR(2449423.6706510314940, saku);
@@ -1423,7 +1401,6 @@ function testIsSanrinbou() {
 }
 
 function runTests() {
-    testFindChukis();
     testFindSaku();
     testOldCalendar();
     testRokki();
@@ -1460,4 +1437,5 @@ module.exports = {
     lunarEclipticLongitude: lunarEclipticLongitude, 
     findNibunNishi: findNibunNishi,
     findSeason: findSeason,
+    findChukis: findChukis,
 }
