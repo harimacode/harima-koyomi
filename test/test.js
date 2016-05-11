@@ -443,3 +443,12 @@ describe('isTenichiTenjoEnd', function () {
         assert.equal(oc.isTenichiTenjoEnd(oc.juliusDate(new Date(2014, 5, 7))), false);
     });
 });
+describe('isIchiryuManbai', function () {
+    it('should return if it is ichiryu manbai day', function () {
+        assert.equal(oc.isIchiryuManbai(oc.juliusDate(new Date(2016,0,6))), false);
+        assert.equal(oc.isIchiryuManbai(oc.juliusDate(new Date(2016,0,7))), true, '2016/1/7 は一粒万倍日');
+        assert.equal(oc.isIchiryuManbai(oc.juliusDate(new Date(2016,0,8))), false);
+        
+        assert.equal(oc.isIchiryuManbai(oc.juliusDate(new Date(2016,0,10))), true, '2016/1/10 も'); 
+    });
+});
