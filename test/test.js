@@ -421,9 +421,25 @@ describe('isJippouGureStart', function () {
         assert.equal(oc.isJippouGureStart(oc.juliusDate(new Date(2014, 4, 13))), true);
         assert.equal(oc.isJippouGureStart(oc.juliusDate(new Date(2014, 4, 14))), false);
     });
+});
+describe('isJippouGureEnd', function () {
     it('should return if it is the end day of jippou gure', function () {
         assert.equal(oc.isJippouGureEnd(oc.juliusDate(new Date(2014, 4, 21))), false);
         assert.equal(oc.isJippouGureEnd(oc.juliusDate(new Date(2014, 4, 22))), true);
         assert.equal(oc.isJippouGureEnd(oc.juliusDate(new Date(2014, 4, 23))), false);
+    });
+});
+describe('isTenichiTenjoStart', function () {
+    it('should return if it is the start day of tenichi tenjo', function () {
+        assert.equal(oc.isTenichiTenjoStart(oc.juliusDate(new Date(2014, 4, 21))), false);
+        assert.equal(oc.isTenichiTenjoStart(oc.juliusDate(new Date(2014, 4, 22))), true);
+        assert.equal(oc.isTenichiTenjoStart(oc.juliusDate(new Date(2014, 4, 23))), false);
+    });
+});
+describe('isTenichiTenjoEnd', function () {
+    it('should return if it is the end day of tenichi tenjo', function () {
+        assert.equal(oc.isTenichiTenjoEnd(oc.juliusDate(new Date(2014, 5, 5))), false);
+        assert.equal(oc.isTenichiTenjoEnd(oc.juliusDate(new Date(2014, 5, 6))), true);
+        assert.equal(oc.isTenichiTenjoEnd(oc.juliusDate(new Date(2014, 5, 7))), false);
     });
 });
