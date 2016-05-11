@@ -6,7 +6,7 @@
  * この関数では、グレゴリオ暦による計数となるAD 1582年10月15日
  * 以降のみを対象とします。
  */
-exports.juliusDate = function juliusDate(date) {
+function juliusDate(date) {
     // TODO 上記値域判定
     var year  = date.getFullYear();
     var month = date.getMonth() + 1;
@@ -25,7 +25,7 @@ exports.juliusDate = function juliusDate(date) {
          + 1721088
          + hours / 24;
 }
-exports.fromJuliusDate = function fromJuliusDate(jd) {
+function fromJuliusDate(jd) {
     // http://mysteryart.web.fc2.com/library/calsmpl/cldttojd.html
     jd+=1; // JST
     
@@ -49,7 +49,7 @@ exports.fromJuliusDate = function fromJuliusDate(jd) {
 /*!
  * JST のユリウス日から力学時を求めます。
  */
-exports.dynamicalTime = function dynamicalTime(juliusDateJST) {
+function dynamicalTime(juliusDateJST) {
     // 元とした文献と同様、協定世界時と力学時の誤差
     // ΔTについては無視しています。
     // 日本標準時からの時差-9時間を引いています。
@@ -62,7 +62,7 @@ exports.dynamicalTime = function dynamicalTime(juliusDateJST) {
  * @param juliusDateDynamicalTime 力学時
  * @return 太陽黄経を表す浮動小数点数
  */
-exports.solarEclipticLongitude = function solarEclipticLongitude(juliusDateDynamicalTime) {
+function solarEclipticLongitude(juliusDateDynamicalTime) {
     //    ｔ＝（JD+0.5-2451545.0）／36525
     var t = (juliusDateDynamicalTime + 0.5 - 2451545.0) / 36525;
     //           18
@@ -90,14 +90,14 @@ exports.solarEclipticLongitude = function solarEclipticLongitude(juliusDateDynam
     ];
     return eclipticLongitude(table, t);
 }
-
+ 
 /*!
  * @brief 与えられた力学時に対応する月の黄経を計算します。
  * 
  * @param juliusDateDynamicalTime 力学時
  * @return 月の黄経を表す浮動小数点数
  */
-exports.lunarEclipticLongitude = function lunarEclipticLongitude(juliusDateDynamicalTime) {
+function lunarEclipticLongitude(juliusDateDynamicalTime) {
     // TODO 共通化
     var t = (juliusDateDynamicalTime + 0.5 - 2451545.0) / 36525;
     //           63
@@ -285,7 +285,7 @@ function findSekki(t, byAngle, offset) {
     var jst = dt + (9/24);
     return [normalizeAngle(angle - offset), jst];
 }
-
+ 
 /**
  * @param t 直前の二分二至の時刻
  */
@@ -1073,11 +1073,6 @@ function check(result, a, b) {
         alert("FAILED: " + a + " !≒ " + b);
     }
 }
-function testFindNibunNishi() {
-    checkR(2449432.2276343490000000, findNibunNishi(2449472.625)[1]);
-    checkDate(new Date(1994,2,21,5,27,48), fromJuliusDate(findNibunNishi(2449472.625)[1]))
-    checkR(2446056.0489, findNibunNishi(juliusDate(new Date(1984,11,23)))[1]);
-}
 function testFindSeason() {
     checkP(3, findSeason(juliusDate(new Date(2016, 1, 3))));
     checkP(0, findSeason(juliusDate(new Date(2016, 1, 4))));  // 2016年2月4日 は春
@@ -1438,7 +1433,6 @@ function testIsSanrinbou() {
 }
 
 function runTests() {
-    testFindNibunNishi();
     testFindSeason();
     testFindChukis();
     testFindSaku();
@@ -1467,4 +1461,13 @@ function runTests() {
     testIsFujoju();
     testIsHassen();
     testIsSanrinbou();
+}
+
+module.exports = {
+    juliusDate: juliusDate,
+    fromJuliusDate: fromJuliusDate,
+    dynamicalTime: dynamicalTime,
+    solarEclipticLongitude: solarEclipticLongitude,
+    lunarEclipticLongitude: lunarEclipticLongitude, 
+    findNibunNishi: findNibunNishi,
 }

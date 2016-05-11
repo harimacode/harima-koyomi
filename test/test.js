@@ -38,7 +38,7 @@ describe('solarEclipticLongitude', function () {
         assert.approximately(oc.solarEclipticLongitude(2449472.625), 40.0342792282334200, DELTA_P);
     });
 });
-describe('lunarEclipticLongitude', function() {
+describe('lunarEclipticLongitude', function () {
     it('should return correct lunar ecliptic longitude', function () {
         // FIXME: 精度が 0.0001 程度しかなく、低すぎる気がするので
         // 計算部分に見直しが必要かも。
@@ -49,5 +49,12 @@ describe('lunarEclipticLongitude', function() {
         assert.approximately(oc.lunarEclipticLongitude(2449483.01263787953888), 53.34937446649215, DELTA_R);
         assert.approximately(oc.lunarEclipticLongitude(2449512.7137218565143), 82.69589256228039, DELTA_R);
         assert.approximately(oc.lunarEclipticLongitude(2449542.3526236737596), 112.2766488159473, DELTA_R);
+    });
+});
+describe('findNibunNishi', function () {
+    it('should return correct nibun nishi', function () {
+        assert.approximately(oc.findNibunNishi(2449472.625)[1], 2449432.2276343490000000, DELTA_R);
+        assert.isOk(datesAreSameMinute(oc.fromJuliusDate(oc.findNibunNishi(2449472.625)[1]), new Date(1994,2,21,5,27,48)));
+        assert.approximately(oc.findNibunNishi(oc.juliusDate(new Date(1984,11,23)))[1], 2446056.0489, DELTA_R);
     });
 });
