@@ -1073,17 +1073,6 @@ function check(result, a, b) {
         alert("FAILED: " + a + " !≒ " + b);
     }
 }
-function testIsHassen() {
-    checkBool(true,  isHassen(juliusDate(new Date(2014, 3, 16))));
-    checkBool(false, isHassen(juliusDate(new Date(2014, 3, 17))));
-    checkBool(true,  isHassen(juliusDate(new Date(2014, 3, 18))));
-    checkBool(true,  isHassen(juliusDate(new Date(2014, 3, 19))));
-    checkBool(true,  isHassen(juliusDate(new Date(2014, 3, 20))));
-    checkBool(false, isHassen(juliusDate(new Date(2014, 3, 21))));
-    checkBool(true,  isHassen(juliusDate(new Date(2014, 3, 22))));
-    checkBool(false, isHassen(juliusDate(new Date(2014, 3, 23))));
-    checkBool(false, isHassen(juliusDate(new Date(2014, 3, 24))));
-}
 function testIsSanrinbou() {
     // 2016/1/13は三輪宝
     checkBool(false, isSanrinbou(juliusDate(new Date(2016, 0, 12))));
@@ -1092,7 +1081,6 @@ function testIsSanrinbou() {
 }
 
 function runTests() {
-    testIsHassen();
     testIsSanrinbou();
 }
 
@@ -1134,5 +1122,6 @@ module.exports = {
     isTenichiTenjoEnd: isTenichiTenjoEnd,
     isIchiryuManbai: isIchiryuManbai,
     isTensya: isTensya,
-    isFujoju: isFujoju, 
+    isFujoju: isFujoju,
+    isHassen: isHassen, 
 }

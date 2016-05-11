@@ -466,3 +466,16 @@ describe('isFujoju', function () {
         assert.equal(oc.isFujoju(oc.oldCalendar(oc.juliusDate(new Date(2016, 0, 9)))), false);
     });
 });
+describe('isHassen', function () {
+    it('should return if it is hassen day', function () {
+        assert.equal(oc.isHassen(oc.juliusDate(new Date(2014, 3, 16))), true);
+        assert.equal(oc.isHassen(oc.juliusDate(new Date(2014, 3, 17))), false);
+        assert.equal(oc.isHassen(oc.juliusDate(new Date(2014, 3, 18))), true);
+        assert.equal(oc.isHassen(oc.juliusDate(new Date(2014, 3, 19))), true);
+        assert.equal(oc.isHassen(oc.juliusDate(new Date(2014, 3, 20))), true);
+        assert.equal(oc.isHassen(oc.juliusDate(new Date(2014, 3, 21))), false);
+        assert.equal(oc.isHassen(oc.juliusDate(new Date(2014, 3, 22))), true);
+        assert.equal(oc.isHassen(oc.juliusDate(new Date(2014, 3, 23))), false);
+        assert.equal(oc.isHassen(oc.juliusDate(new Date(2014, 3, 24))), false);
+    });
+});
