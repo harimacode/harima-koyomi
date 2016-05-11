@@ -452,3 +452,10 @@ describe('isIchiryuManbai', function () {
         assert.equal(oc.isIchiryuManbai(oc.juliusDate(new Date(2016,0,10))), true, '2016/1/10 も'); 
     });
 });
+describe('isTensya', function () {
+    it('should return if it is tensya day', function () {
+        assert.equal(oc.isTensya(oc.juliusDate(new Date(2016, 1, 25))), false);
+        assert.equal(oc.isTensya(oc.juliusDate(new Date(2016, 1, 26))), true);
+        assert.equal(oc.isTensya(oc.juliusDate(new Date(2016, 1, 27))), false);
+    });
+});
