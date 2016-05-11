@@ -459,3 +459,10 @@ describe('isTensya', function () {
         assert.equal(oc.isTensya(oc.juliusDate(new Date(2016, 1, 27))), false);
     });
 });
+describe('isFujoju', function () {
+    it('should return if it is fujoju day', function () {
+        assert.equal(oc.isFujoju(oc.oldCalendar(oc.juliusDate(new Date(2016, 0, 7)))), false);
+        assert.equal(oc.isFujoju(oc.oldCalendar(oc.juliusDate(new Date(2016, 0, 8)))), true, '2016/01/08 は不成就日');
+        assert.equal(oc.isFujoju(oc.oldCalendar(oc.juliusDate(new Date(2016, 0, 9)))), false);
+    });
+});

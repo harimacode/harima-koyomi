@@ -1073,12 +1073,6 @@ function check(result, a, b) {
         alert("FAILED: " + a + " !≒ " + b);
     }
 }
-function testIsFujoju() {
-    // 2016/01/08 は不成就日
-    checkBool(false, isFujoju(oldCalendar(juliusDate(new Date(2016, 0, 7)))));
-    checkBool(true,  isFujoju(oldCalendar(juliusDate(new Date(2016, 0, 8)))));
-    checkBool(false, isFujoju(oldCalendar(juliusDate(new Date(2016, 0, 9)))));
-}
 function testIsHassen() {
     checkBool(true,  isHassen(juliusDate(new Date(2014, 3, 16))));
     checkBool(false, isHassen(juliusDate(new Date(2014, 3, 17))));
@@ -1098,7 +1092,6 @@ function testIsSanrinbou() {
 }
 
 function runTests() {
-    testIsFujoju();
     testIsHassen();
     testIsSanrinbou();
 }
@@ -1140,5 +1133,6 @@ module.exports = {
     isTenichiTenjoStart: isTenichiTenjoStart,
     isTenichiTenjoEnd: isTenichiTenjoEnd,
     isIchiryuManbai: isIchiryuManbai,
-    isTensya: isTensya, 
+    isTensya: isTensya,
+    isFujoju: isFujoju, 
 }
