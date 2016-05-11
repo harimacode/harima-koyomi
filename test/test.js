@@ -13,15 +13,15 @@ const DELTA_P = 0.00000000001;
 
 describe('juliusDate', function () {
     it('should return correct julius date #1', function () {
-        assert.equal(2449473, oc.juliusDate(new Date(1994,4,1)), "1994年5月1日 ＝ 2449473");
-        assert.isOk(datesAreSameMinute(new Date(1994,4,1), oc.fromJuliusDate(2449473)));
-        assert.equal(2446056, oc.juliusDate(new Date(1984,11,22)), "Date#month は 0 origin"); 
+        assert.equal(oc.juliusDate(new Date(1994,4,1)), 2449473, "1994年5月1日 ＝ 2449473");
+        assert.isOk(datesAreSameMinute(oc.fromJuliusDate(2449473), new Date(1994,4,1)));
+        assert.equal(oc.juliusDate(new Date(1984,11,22)), 2446056, "Date#month は 0 origin"); 
     });
 });
 describe('dynamicalTime', function () {
     it('should return correct dynamical time', function () {
-        assert.equal(2449472.625, oc.dynamicalTime(oc.juliusDate(new Date(1994,4,1))), "1994年5月1日0時 = 2449472.625");
-        assert.equal(2449664.2916666665, oc.dynamicalTime(oc.juliusDate(new Date(1994,10,8,16,00))), "1994年11月 8日 16:00(JST)");
+        assert.equal(oc.dynamicalTime(oc.juliusDate(new Date(1994,4,1))), 2449472.625, "1994年5月1日0時 = 2449472.625");
+        assert.equal(oc.dynamicalTime(oc.juliusDate(new Date(1994,10,8,16,00))), 2449664.2916666665, "1994年11月 8日 16:00(JST)");
     });
 });
 describe('solarEclipticLongitude', function () {
