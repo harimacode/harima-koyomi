@@ -165,3 +165,15 @@ describe('oldCalendar', function () {
         assert.equal(oc.oldCalendar(oc.juliusDate(new Date(2017,8,20))).toString(), '8月1日');
     });
 });
+describe('rokki', function () {
+    it('should return correct rokkis', function () {
+        assert.equal(oc.rokki(new oc.OldDate(false, 3, 17)), '先勝');
+        assert.equal(oc.rokki(new oc.OldDate(false, 3, 18)), '友引');
+        assert.equal(oc.rokki(new oc.OldDate(false, 3, 19)), '先負');
+        assert.equal(oc.rokki(new oc.OldDate(false, 3, 20)), '空亡');
+        assert.equal(oc.rokki(new oc.OldDate(false, 3, 21)), '大安');
+        assert.equal(oc.rokki(new oc.OldDate(false, 3, 22)), '赤口');
+        assert.equal(oc.rokki(new oc.OldDate(false, 3, 23)), '先勝');
+        assert.equal(oc.rokki(new oc.OldDate(true, 3, 23)), '先勝', '閏月も同じだったはず'); 
+    });
+});

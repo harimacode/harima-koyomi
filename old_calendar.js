@@ -1073,16 +1073,6 @@ function check(result, a, b) {
         alert("FAILED: " + a + " !≒ " + b);
     }
 }
-function testRokki() {
-    checkStr("先勝", rokki(new OldDate(false, 3, 17)));
-    checkStr("友引", rokki(new OldDate(false, 3, 18)));
-    checkStr("先負", rokki(new OldDate(false, 3, 19)));
-    checkStr("空亡", rokki(new OldDate(false, 3, 20)));
-    checkStr("大安", rokki(new OldDate(false, 3, 21)));
-    checkStr("赤口", rokki(new OldDate(false, 3, 22)));
-    checkStr("先勝", rokki(new OldDate(false, 3, 23)));
-    checkStr("先勝", rokki(new OldDate(true, 3, 23))); // 閏月も同じだったはず
-}
 function testEto() {
     // 1873年 1月12日 が甲子の基準日
     checkStr("甲子", eto(juliusDate(new Date(1873,0,12))));
@@ -1333,7 +1323,6 @@ function testIsSanrinbou() {
 }
 
 function runTests() {
-    testRokki();
     testEto();
     testKyusei();
     testFindSetsugetsu();
@@ -1371,4 +1360,6 @@ module.exports = {
     findSaku: findSaku,
     findSakus: findSakus,
     oldCalendar: oldCalendar,
+    rokki: rokki,
+    OldDate: OldDate,
 }
