@@ -49,7 +49,7 @@ exports.fromJuliusDate = function fromJuliusDate(jd) {
 /*!
  * JST のユリウス日から力学時を求めます。
  */
-function dynamicalTime(juliusDateJST) {
+exports.dynamicalTime = function dynamicalTime(juliusDateJST) {
     // 元とした文献と同様、協定世界時と力学時の誤差
     // ΔTについては無視しています。
     // 日本標準時からの時差-9時間を引いています。
@@ -1073,12 +1073,6 @@ function check(result, a, b) {
         alert("FAILED: " + a + " !≒ " + b);
     }
 }
-function testDynamicalTime() {
-    // 1994年5月1日0時 = 2449472.625
-    checkP(2449472.625, dynamicalTime(juliusDate(new Date(1994,4,1))));
-    // 1994年11月 8日 16:00(JST)
-    checkP(2449664.2916666665, dynamicalTime(juliusDate(new Date(1994,10,8,16,00))));
-}
 function testSolarEclipticLongitude() {
     // 1994年11月8日 16:00(JST)
     checkP(225.6456900296, solarEclipticLongitude(dynamicalTime(juliusDate(new Date(1994,10,8,16,00)))));
@@ -1467,7 +1461,6 @@ function testIsSanrinbou() {
 }
 
 function runTests() {
-    testDynamicalTime();
     testSolarEclipticLongitude();
     testLunarEclipticLongitude();
     testFindNibunNishi();
