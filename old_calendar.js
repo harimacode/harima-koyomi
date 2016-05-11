@@ -1073,15 +1073,6 @@ function check(result, a, b) {
         alert("FAILED: " + a + " !≒ " + b);
     }
 }
-function testIsHachijuHachiya() {
-    checkBool(false, isHachijuHachiya(juliusDate(new Date(2016,3,30))));
-    checkBool(true,  isHachijuHachiya(juliusDate(new Date(2016,4,1))));
-    checkBool(false, isHachijuHachiya(juliusDate(new Date(2016,4,2))));
-    
-    checkBool(true, isHachijuHachiya(juliusDate(new Date(2017,4,2))));
-    checkBool(true, isHachijuHachiya(juliusDate(new Date(2018,4,2))));
-    checkBool(true, isHachijuHachiya(juliusDate(new Date(2019,4,2))));
-}
 function testHigan() {
     checkBool(false, isHiganStart(juliusDate(new Date(2014,8,19))));
     checkBool(true,  isHiganStart(juliusDate(new Date(2014,8,20))));
@@ -1243,7 +1234,6 @@ function testIsSanrinbou() {
 }
 
 function runTests() {
-    testIsHachijuHachiya();
     testHigan();
     testIsSyanichi();
     testIsSanpuku();
@@ -1282,4 +1272,5 @@ module.exports = {
     nattin: nattin,
     nijuShisekki: nijuShisekki,
     isSetsubun: isSetsubun,
+    isHachijuHachiya: isHachijuHachiya,
 }

@@ -272,3 +272,14 @@ describe('isSetsubun', function () {
         assert.equal(oc.isSetsubun(oc.juliusDate(new Date(2025,1,3))), false);
     });
 });
+describe('isHachijuHachiya', function () {
+    it('should return if it is 88-ya', function () {
+        assert.equal(oc.isHachijuHachiya(oc.juliusDate(new Date(2016,3,30))), false);
+        assert.equal(oc.isHachijuHachiya(oc.juliusDate(new Date(2016,4,1))), true);
+        assert.equal(oc.isHachijuHachiya(oc.juliusDate(new Date(2016,4,2))), false);
+        
+        assert.equal(oc.isHachijuHachiya(oc.juliusDate(new Date(2017,4,2))), true);
+        assert.equal(oc.isHachijuHachiya(oc.juliusDate(new Date(2018,4,2))), true);
+        assert.equal(oc.isHachijuHachiya(oc.juliusDate(new Date(2019,4,2))), true);
+    });
+});
