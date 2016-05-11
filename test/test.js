@@ -239,4 +239,12 @@ describe('choku', function () {
         assert.equal(oc.choku(oc.juliusDate(new Date(2014,3,16,12))), '除', 'jd が整数とならないパターン'); 
     });
 });
-
+describe('shuku', function () {
+    it('should return correct shuku', function () {
+        assert.equal(oc.shuku(oc.oldCalendar(oc.juliusDate(new Date(2014,3,16)))), '心');
+        assert.equal(oc.shuku(oc.oldCalendar(oc.juliusDate(new Date(2014,3,17)))), '尾');
+        assert.equal(oc.shuku(oc.oldCalendar(oc.juliusDate(new Date(2014,4,1)))), '参');
+        assert.equal(oc.shuku(oc.oldCalendar(oc.juliusDate(new Date(2014,4,12)))), '房');
+        assert.equal(oc.shuku(oc.oldCalendar(oc.juliusDate(new Date(2014,4,13)))), '心');
+    });
+});

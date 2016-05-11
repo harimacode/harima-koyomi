@@ -1073,13 +1073,6 @@ function check(result, a, b) {
         alert("FAILED: " + a + " !≒ " + b);
     }
 }
-function testShuku() {
-    checkStr("心", shuku(oldCalendar(juliusDate(new Date(2014,3,16)))));
-    checkStr("尾", shuku(oldCalendar(juliusDate(new Date(2014,3,17)))));
-    checkStr("参", shuku(oldCalendar(juliusDate(new Date(2014,4,1)))));
-    checkStr("房", shuku(oldCalendar(juliusDate(new Date(2014,4,12)))));
-    checkStr("心", shuku(oldCalendar(juliusDate(new Date(2014,4,13)))));
-}
 function testNattin() {
     checkStr("沙中土", nattin(juliusDate(new Date(2014,3,16))));
     checkStr("天上火", nattin(juliusDate(new Date(2014,3,17))));
@@ -1268,7 +1261,6 @@ function testIsSanrinbou() {
 }
 
 function runTests() {
-    testShuku();
     testNattin();
     testNijuShisekki();
     testIsSetsubun();
@@ -1307,4 +1299,5 @@ module.exports = {
     kyusei: kyusei,
     findSetsugetsu: findSetsugetsu,
     choku: choku,
+    shuku: shuku,
 }
