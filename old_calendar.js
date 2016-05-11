@@ -1073,23 +1073,6 @@ function check(result, a, b) {
         alert("FAILED: " + a + " !≒ " + b);
     }
 }
-function testDoyo() {
-    checkStr("", isDoyoStart(juliusDate(new Date(2014,0,16))));
-    checkStr("冬土用入", isDoyoStart(juliusDate(new Date(2014,0,17))));
-    checkStr("", isDoyoStart(juliusDate(new Date(2014,0,18))));
-
-    checkStr("", isDoyoEnd(juliusDate(new Date(2014,1,2))));
-    checkStr("冬土用明", isDoyoEnd(juliusDate(new Date(2014,1,3))));
-    checkStr("", isDoyoEnd(juliusDate(new Date(2014,1,4))));    
-    
-    checkStr("春土用入", isDoyoStart(juliusDate(new Date(2014,3,17))));
-    checkStr("夏土用入", isDoyoStart(juliusDate(new Date(2014,6,20))));
-    checkStr("秋土用入", isDoyoStart(juliusDate(new Date(2014,9,20))));
-
-    checkStr("春土用明", isDoyoEnd(juliusDate(new Date(2014,4,4))));
-    checkStr("夏土用明", isDoyoEnd(juliusDate(new Date(2014,7,6))));
-    checkStr("秋土用明", isDoyoEnd(juliusDate(new Date(2014,10,6))));
-}
 function testIsDaysFromRissyun() {
     // 二百十日
     checkBool(false, isDaysFromRissyun(210, juliusDate(new Date(2016,7,30))));
@@ -1165,7 +1148,6 @@ function testIsSanrinbou() {
 }
 
 function runTests() {
-    testDoyo();
     testIsDaysFromRissyun();
     testJippouGure();
     testTenichiTenjo();
@@ -1204,5 +1186,7 @@ module.exports = {
     isSyanichi: isSyanichi,
     isSanpuku: isSanpuku,
     isNyubai: isNyubai,
-    isHangesyo: isHangesyo, 
+    isHangesyo: isHangesyo,
+    isDoyoStart: isDoyoStart,
+    isDoyoEnd: isDoyoEnd, 
 }

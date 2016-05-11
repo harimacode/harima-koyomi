@@ -371,3 +371,25 @@ describe('isHangesyo', function () {
         assert.equal(oc.isHangesyo(oc.juliusDate(new Date(2016,6,2))), false);
     });
 });
+describe('isDoyoStart', function () {
+    it('should return if it is the start day of doyo', function () {
+        assert.equal(oc.isDoyoStart(oc.juliusDate(new Date(2014,0,16))), '');
+        assert.equal(oc.isDoyoStart(oc.juliusDate(new Date(2014,0,17))), '冬土用入');
+        assert.equal(oc.isDoyoStart(oc.juliusDate(new Date(2014,0,18))), '');
+        
+        assert.equal(oc.isDoyoStart(oc.juliusDate(new Date(2014,3,17))), '春土用入');
+        assert.equal(oc.isDoyoStart(oc.juliusDate(new Date(2014,6,20))), '夏土用入');
+        assert.equal(oc.isDoyoStart(oc.juliusDate(new Date(2014,9,20))), '秋土用入');
+    });
+});
+describe('isDoyoEnd', function () {
+    it('should return if it is the end day of doyo', function () {
+        assert.equal(oc.isDoyoEnd(oc.juliusDate(new Date(2014,1,2))), '');
+        assert.equal(oc.isDoyoEnd(oc.juliusDate(new Date(2014,1,3))), '冬土用明');
+        assert.equal(oc.isDoyoEnd(oc.juliusDate(new Date(2014,1,4))), '');    
+        
+        assert.equal(oc.isDoyoEnd(oc.juliusDate(new Date(2014,4,4))), '春土用明');
+        assert.equal(oc.isDoyoEnd(oc.juliusDate(new Date(2014,7,6))), '夏土用明');
+        assert.equal(oc.isDoyoEnd(oc.juliusDate(new Date(2014,10,6))), '秋土用明');
+    });
+});
