@@ -1073,15 +1073,6 @@ function check(result, a, b) {
         alert("FAILED: " + a + " !≒ " + b);
     }
 }
-function testJippouGure() {
-    checkBool(false, isJippouGureStart(juliusDate(new Date(2014, 4, 12))));
-    checkBool(true,  isJippouGureStart(juliusDate(new Date(2014, 4, 13))));
-    checkBool(false, isJippouGureStart(juliusDate(new Date(2014, 4, 14))));
-    
-    checkBool(false, isJippouGureEnd(juliusDate(new Date(2014, 4, 21))));
-    checkBool(true,  isJippouGureEnd(juliusDate(new Date(2014, 4, 22))));
-    checkBool(false, isJippouGureEnd(juliusDate(new Date(2014, 4, 23))));
-}
 function testTenichiTenjo() {
     checkBool(false, isTenichiTenjoStart(juliusDate(new Date(2014, 4, 21))));
     checkBool(true,  isTenichiTenjoStart(juliusDate(new Date(2014, 4, 22))));
@@ -1129,7 +1120,6 @@ function testIsSanrinbou() {
 }
 
 function runTests() {
-    testJippouGure();
     testTenichiTenjo();
     testIsIchiryuManbai();
     testIsTensya();
@@ -1169,5 +1159,7 @@ module.exports = {
     isHangesyo: isHangesyo,
     isDoyoStart: isDoyoStart,
     isDoyoEnd: isDoyoEnd,
-    isDaysFromRissyun: isDaysFromRissyun, 
+    isDaysFromRissyun: isDaysFromRissyun,
+    isJippouGureStart: isJippouGureStart,
+    isJippouGureEnd: isJippouGureEnd, 
 }

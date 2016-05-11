@@ -415,3 +415,15 @@ describe('isDaysFromRissyun', function () {
         assert.equal(oc.isDaysFromRissyun(220, oc.juliusDate(new Date(2019,8,11))), true);
     });
 });
+describe('isJippouGureStart', function () {
+    it('should return if it is the start day of jippou gure', function () {
+        assert.equal(oc.isJippouGureStart(oc.juliusDate(new Date(2014, 4, 12))), false);
+        assert.equal(oc.isJippouGureStart(oc.juliusDate(new Date(2014, 4, 13))), true);
+        assert.equal(oc.isJippouGureStart(oc.juliusDate(new Date(2014, 4, 14))), false);
+    });
+    it('should return if it is the end day of jippou gure', function () {
+        assert.equal(oc.isJippouGureEnd(oc.juliusDate(new Date(2014, 4, 21))), false);
+        assert.equal(oc.isJippouGureEnd(oc.juliusDate(new Date(2014, 4, 22))), true);
+        assert.equal(oc.isJippouGureEnd(oc.juliusDate(new Date(2014, 4, 23))), false);
+    });
+});
