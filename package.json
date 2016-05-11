@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/harimacode/harima-koyomi/issues"
   },
-  "homepage": "https://github.com/harimacode/harima-koyomi#readme"
+  "homepage": "https://github.com/harimacode/harima-koyomi#readme",
+  "devDependencies": {
+    "mocha": "^2.4.5"
+  }
 }
