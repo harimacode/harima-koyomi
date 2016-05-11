@@ -90,7 +90,7 @@ function solarEclipticLongitude(juliusDateDynamicalTime) {
     ];
     return eclipticLongitude(table, t);
 }
-
+ 
 /*!
  * @brief 与えられた力学時に対応する月の黄経を計算します。
  * 
@@ -285,7 +285,7 @@ function findSekki(t, byAngle, offset) {
     var jst = dt + (9/24);
     return [normalizeAngle(angle - offset), jst];
 }
-
+ 
 /**
  * @param t 直前の二分二至の時刻
  */
@@ -1041,469 +1041,49 @@ function tagsForDate(date, moon) {
     return tags;
 }
 
-// precisely に比較する
-function checkP(a, b) {
-    return checkFloat(a, b, 0.00000000001);
-}
-// roughly に比較する
-function checkR(a, b) {
-    return checkFloat(a, b, 0.0001);
-}
-function checkFloat(a, b, tolerance) {
-    var result = Math.abs(a - b) < tolerance;
-    check(result, a, b);
-}
-function checkBool(a, b) {
-    check(a == b, a, b);
-}
-function checkDate(a, b) {
-    // 分までだけ比較する。
-    var result = a.getFullYear() == b.getFullYear()
-        && a.getMonth() == b.getMonth()
-        && a.getDate() == b.getDate()
-        && a.getHours() == b.getHours()
-        && a.getMinutes() == b.getMinutes();
-    check(result, a, b);
-}
-function checkStr(a, b) {
-    check(a === b, a, b);
-}
-function check(result, a, b) {
-    if (!result) {
-        alert("FAILED: " + a + " !≒ " + b);
-    }
-}
-function testDynamicalTime() {
-    // 1994年5月1日0時 = 2449472.625
-    checkP(2449472.625, dynamicalTime(juliusDate(new Date(1994,4,1))));
-    // 1994年11月 8日 16:00(JST)
-    checkP(2449664.2916666665, dynamicalTime(juliusDate(new Date(1994,10,8,16,00))));
-}
-function testSolarEclipticLongitude() {
-    // 1994年11月8日 16:00(JST)
-    checkP(225.6456900296, solarEclipticLongitude(dynamicalTime(juliusDate(new Date(1994,10,8,16,00)))));
-    
-    // 文献中の例から。
-    checkP(359.9999999299906, solarEclipticLongitude(2449431.85263434904943));
-    checkP(21.16941167248130, solarEclipticLongitude(2449453.295651030494));
-    checkP(50.09737887498562, solarEclipticLongitude(2449483.01263787953888));
-    checkP(78.63143984057999, solarEclipticLongitude(2449512.7137218565143));
-    checkP(106.9141295248953, solarEclipticLongitude(2449542.3526236737596));
-    checkP(40.0342792282334200, solarEclipticLongitude(2449472.625));
-}
-function testLunarEclipticLongitude() {
-    // FIXME: 精度が 0.0001 程度しかなく、低すぎる気がするので
-    // 計算部分に見直しが必要かも。
-    
-    // 文献中の例から。
-    checkR(93.93361186916204, lunarEclipticLongitude(2449431.85263434904943));
-    checkR(24.23809602459182, lunarEclipticLongitude(2449453.295651030494));
-    checkR(53.34937446649215, lunarEclipticLongitude(2449483.01263787953888));
-    checkR(82.69589256228039, lunarEclipticLongitude(2449512.7137218565143));
-    checkR(112.2766488159473, lunarEclipticLongitude(2449542.3526236737596));
-}
-function testJuliusDate() {
-    // 1994年5月1日 ＝ 2449473
-    checkP(2449473, juliusDate(new Date(1994,4,1))); // Date#month は 0 origin
-    checkDate(new Date(1994,4,1), fromJuliusDate(2449473));
-    checkP(2446056, juliusDate(new Date(1984,11,22))); // Date#month は 0 origin
-}
-function testFindNibunNishi() {
-    checkR(2449432.2276343490000000, findNibunNishi(2449472.625)[1]);
-    checkDate(new Date(1994,2,21,5,27,48), fromJuliusDate(findNibunNishi(2449472.625)[1]))
-    checkR(2446056.0489, findNibunNishi(juliusDate(new Date(1984,11,23)))[1]);
-}
-function testFindSeason() {
-    checkP(3, findSeason(juliusDate(new Date(2016, 1, 3))));
-    checkP(0, findSeason(juliusDate(new Date(2016, 1, 4))));  // 2016年2月4日 は春
-    checkP(0, findSeason(juliusDate(new Date(2016, 4, 4))));
-    checkP(1, findSeason(juliusDate(new Date(2016, 4, 5))));  // 2016年5月5日 は夏
-    checkP(1, findSeason(juliusDate(new Date(2016, 7, 6))));
-    checkP(2, findSeason(juliusDate(new Date(2016, 7, 7))));  // 2016年8月7日 は秋
-    checkP(2, findSeason(juliusDate(new Date(2016, 10, 6))));
-    checkP(3, findSeason(juliusDate(new Date(2016, 10, 7)))); // 2016年11月7日 は冬
-}
-function testFindChukis() {
-    var result = findChukis(2449432.2276343490);
-    var answers = [
-        2449462.6910369310000,
-        2449493.6580418450000,
-        2449524.9906033690000,
-    ];
-    for (var i = 0; i < answers.length; ++i) {
-        checkR(answers[i], result[i]);
-    } 
-    
-    var result2 = findChukis(findNibunNishi(juliusDate(new Date(1993,4,1)))[1]);
-    var answers2 = [
-        2449097.4502,
-        2449128.4174,
-        2449159.7497,
-    ];
-    for (var i = 0; i < answers2.length; ++i) {
-        checkR(answers2[i], result2[i]);
-    } 
-
-}
-function testFindSaku() {
-    var saku = findSaku(2449431.85263434904943); 
-    checkR(2449423.6706510314940, saku);
-    // alert(fromJuliusDate(saku));
-    
-    var sakus = findSakus(2449431.85263434904943);
-    var answers = [
-        2449423.6706510314940,
-        2449453.3876378879538,
-        2449483.0887218565143,
-        2449512.7276236737596,
-        2449542.2768841335603,
-    ];
-    for (var i = 0; i < answers.length; ++i) {
-        checkR(answers[i], sakus[i]);
-    } 
-
-    var sakus2 = findSakus(findNibunNishi(juliusDate(new Date(1993,4,1)))[1]);
-    var answers2 = [
-        2449039.9209,
-        2449069.6773,
-        2449099.3680,
-        2449128.9637,
-        2449158.4540,
-    ];
-    for (var i = 0; i < answers2.length; ++i) {
-        checkR(answers2[i], sakus2[i]);
-    }
-    
-    var sakus3 = findSakus(findNibunNishi(juliusDate(new Date(1985,0,1)))[1]);
-    var answers3 = [
-        2446056.8671,
-        2446086.4793,
-        2446116.1560,
-        2446145.8755,
-        2446175.6000,
-    ];
-    for (var i = 0; i < answers3.length; ++i) {
-        checkR(answers3[i], sakus3[i]);
-    } 
-}
-function testOldCalendar() {
-    // 1994年5月1日
-    checkStr("3月21日", oldCalendar(juliusDate(new Date(1994,4,1))).toString());
-    // 1993年5月1日
-    checkStr("閏3月10日", oldCalendar(juliusDate(new Date(1993,4,1))).toString());
-    // 1985年1月1日
-    checkStr("11月11日", oldCalendar(juliusDate(new Date(1985,0,1))).toString());
-    // alert(oldCalendar(juliusDate(new Date(2012,0,1))));
-    
-    // // 2002-2021 年元日 は http://www.ajnet.ne.jp/diary/ との一致を確認
-    // var dates = [];
-    // for (var y = 2002; y < 2051; ++y) {
-    //     dates.push(y + ':' + oldCalendar(juliusDate(new Date(y,0,1))));
-    // }
-    // alert(dates.join('\n'));
-    
-    // 2016 年については正しい旧暦が得られていることを確認
-    // var dates = [];
-    // var jd = juliusDate(new Date(2016,6,1));
-    // for (var i = 0; i < 200; ++i) {
-    //     var d = fromJuliusDate(jd + i);
-    //     var s = (d.getMonth()+1) + "/" + d.getDate();
-    //     dates.push(s + '=>' + oldCalendar(jd + i));
-    // }
-    // alert(dates.join('\n'));
-    checkStr("8月1日", oldCalendar(juliusDate(new Date(2017,8,20))).toString());
-}
-function testRokki() {
-    checkStr("先勝", rokki(new OldDate(false, 3, 17)));
-    checkStr("友引", rokki(new OldDate(false, 3, 18)));
-    checkStr("先負", rokki(new OldDate(false, 3, 19)));
-    checkStr("空亡", rokki(new OldDate(false, 3, 20)));
-    checkStr("大安", rokki(new OldDate(false, 3, 21)));
-    checkStr("赤口", rokki(new OldDate(false, 3, 22)));
-    checkStr("先勝", rokki(new OldDate(false, 3, 23)));
-    checkStr("先勝", rokki(new OldDate(true, 3, 23))); // 閏月も同じだったはず
-}
-function testEto() {
-    // 1873年 1月12日 が甲子の基準日
-    checkStr("甲子", eto(juliusDate(new Date(1873,0,12))));
-    checkStr("丁巳", eto(juliusDate(new Date(2014,3,16))));
-    checkStr("戊午", eto(juliusDate(new Date(2014,3,17))));
-    checkStr("己未", eto(juliusDate(new Date(2014,3,18))));
-    checkStr("庚申", eto(juliusDate(new Date(2014,3,19))));
-}
-function testKyusei() {
-    checkStr("六白", kyusei(juliusDate(new Date(2014,3,16))));
-    checkStr("七赤", kyusei(juliusDate(new Date(2014,3,17))));
-
-    checkStr("八白", kyusei(juliusDate(new Date(2008,11,18))));
-    checkStr("七赤", kyusei(juliusDate(new Date(2008,11,19))));
-    checkStr("七赤", kyusei(juliusDate(new Date(2008,11,20))));
-    checkStr("八白", kyusei(juliusDate(new Date(2008,11,21))));
-
-    checkStr("二黒", kyusei(juliusDate(new Date(1997,5,19))));
-    checkStr("三碧", kyusei(juliusDate(new Date(1997,5,20))));
-    checkStr("三碧", kyusei(juliusDate(new Date(1997,5,21))));
-    checkStr("二黒", kyusei(juliusDate(new Date(1997,5,22))));
-
-    // var r = [];    
-    // for (var i = 0; i < 6; ++i) {
-    //     r.push(kyusei(juliusDate(new Date(1997,5,18+i))));
-    // }
-    // alert(r);
-}
-function testFindSetsugetsu() {
-    var s;
-    // 2016年3月20日=春分→2月節、3/5
-    s = findSetsugetsu(juliusDate(new Date(2016,2,20)));
-    checkP(2, s[0]); // 2月節
-    checkDate(new Date(2016,2,5), fromJuliusDate(Math.floor(s[1]))); // 3/5
-    
-    // 2016年4月20日=穀雨→3月節、4/4
-    s = findSetsugetsu(juliusDate(new Date(2016,3,20)));
-    checkP(3, s[0]); // 3月節
-    checkDate(new Date(2016,3,4), fromJuliusDate(Math.floor(s[1]))); // 4/4
-    
-    // 2016年3月4日=1月節,2/4
-    s = findSetsugetsu(juliusDate(new Date(2016,2,4)));
-    checkP(1, s[0]); // 2月節
-    checkDate(new Date(2016,1,4), fromJuliusDate(Math.floor(s[1]))); // 2/4
-    // 2016年3月5日=2月節,3/5
-    s = findSetsugetsu(juliusDate(new Date(2016,2,5)));
-    checkP(2, s[0]); // 2月節
-    checkDate(new Date(2016,2,5), fromJuliusDate(Math.floor(s[1]))); // 3/5
-}
-function testChoku() {
-    checkStr("除", choku(juliusDate(new Date(2014,3,16))));
-    checkStr("危", choku(juliusDate(new Date(2014,4,4))));
-    checkStr("危", choku(juliusDate(new Date(2014,4,5))));
-    checkStr("除", choku(juliusDate(new Date(2014,3,16,12)))); // jd が整数とならないパターン
-}
-function testShuku() {
-    checkStr("心", shuku(oldCalendar(juliusDate(new Date(2014,3,16)))));
-    checkStr("尾", shuku(oldCalendar(juliusDate(new Date(2014,3,17)))));
-    checkStr("参", shuku(oldCalendar(juliusDate(new Date(2014,4,1)))));
-    checkStr("房", shuku(oldCalendar(juliusDate(new Date(2014,4,12)))));
-    checkStr("心", shuku(oldCalendar(juliusDate(new Date(2014,4,13)))));
-}
-function testNattin() {
-    checkStr("沙中土", nattin(juliusDate(new Date(2014,3,16))));
-    checkStr("天上火", nattin(juliusDate(new Date(2014,3,17))));
-}
-function testNijuShisekki() {
-    checkStr("", nijuShisekki(juliusDate(new Date(2014,4,4))));
-    checkStr("立夏", nijuShisekki(juliusDate(new Date(2014,4,5))));
-    checkStr("", nijuShisekki(juliusDate(new Date(2014,4,6))));
-}
-function testIsSetsubun() {
-    checkBool(false, isSetsubun(juliusDate(new Date(2016,1,2))));
-    checkBool(true,  isSetsubun(juliusDate(new Date(2016,1,3))));
-    checkBool(false, isSetsubun(juliusDate(new Date(2016,1,4))));
-
-    checkBool(false, isSetsubun(juliusDate(new Date(2025,1,1))));
-    checkBool(true,  isSetsubun(juliusDate(new Date(2025,1,2))));
-    checkBool(false, isSetsubun(juliusDate(new Date(2025,1,3))));
-}
-function testIsHachijuHachiya() {
-    checkBool(false, isHachijuHachiya(juliusDate(new Date(2016,3,30))));
-    checkBool(true,  isHachijuHachiya(juliusDate(new Date(2016,4,1))));
-    checkBool(false, isHachijuHachiya(juliusDate(new Date(2016,4,2))));
-    
-    checkBool(true, isHachijuHachiya(juliusDate(new Date(2017,4,2))));
-    checkBool(true, isHachijuHachiya(juliusDate(new Date(2018,4,2))));
-    checkBool(true, isHachijuHachiya(juliusDate(new Date(2019,4,2))));
-}
-function testHigan() {
-    checkBool(false, isHiganStart(juliusDate(new Date(2014,8,19))));
-    checkBool(true,  isHiganStart(juliusDate(new Date(2014,8,20))));
-    checkBool(false, isHiganStart(juliusDate(new Date(2014,8,21))));
-    
-    checkBool(false, isHiganEnd(juliusDate(new Date(2014,8,25))));
-    checkBool(true,  isHiganEnd(juliusDate(new Date(2014,8,26))));
-    checkBool(false, isHiganEnd(juliusDate(new Date(2014,8,27))));
-}
-function testIsSyanichi() {
-    checkStr("", isSyanichi(juliusDate(new Date(2007,2,24))));
-    checkStr("社日(春)", isSyanichi(juliusDate(new Date(2007,2,25))));
-    checkStr("", isSyanichi(juliusDate(new Date(2007,2,26))));
-
-    checkStr("", isSyanichi(juliusDate(new Date(2007,8,20))));
-    checkStr("社日(秋)", isSyanichi(juliusDate(new Date(2007,8,21))));
-    checkStr("", isSyanichi(juliusDate(new Date(2007,8,22))));
-
-    checkStr("社日(春)", isSyanichi(juliusDate(new Date(2008,2,19))));
-    checkStr("社日(春)", isSyanichi(juliusDate(new Date(2009,2,24))));
-    checkStr("社日(春)", isSyanichi(juliusDate(new Date(2010,2,19))));
-    checkStr("社日(春)", isSyanichi(juliusDate(new Date(2011,2,24))));
-    checkStr("社日(春)", isSyanichi(juliusDate(new Date(2012,2,18))));
-    checkStr("社日(春)", isSyanichi(juliusDate(new Date(2013,2,23))));
-    checkStr("社日(春)", isSyanichi(juliusDate(new Date(2014,2,18))));
-
-    checkStr("社日(秋)", isSyanichi(juliusDate(new Date(2008,8,25))));
-    checkStr("社日(秋)", isSyanichi(juliusDate(new Date(2009,8,20))));
-    checkStr("社日(秋)", isSyanichi(juliusDate(new Date(2010,8,25))));
-    checkStr("社日(秋)", isSyanichi(juliusDate(new Date(2011,8,20))));
-    checkStr("社日(秋)", isSyanichi(juliusDate(new Date(2012,8,24))));
-    checkStr("社日(秋)", isSyanichi(juliusDate(new Date(2013,8,19))));
-    checkStr("社日(秋)", isSyanichi(juliusDate(new Date(2014,8,24))));
-}
-function testIsSanpuku() {
-    checkStr("", isSanpuku(juliusDate(new Date(2016,6,16))));
-    checkStr("初伏", isSanpuku(juliusDate(new Date(2016,6,17))));
-    checkStr("", isSanpuku(juliusDate(new Date(2016,6,18))));
-
-    checkStr("", isSanpuku(juliusDate(new Date(2016,6,26))));
-    checkStr("中伏", isSanpuku(juliusDate(new Date(2016,6,27))));
-    checkStr("", isSanpuku(juliusDate(new Date(2016,6,28))));
-
-    checkStr("", isSanpuku(juliusDate(new Date(2016,7,15))));
-    checkStr("末伏", isSanpuku(juliusDate(new Date(2016,7,16))));
-    checkStr("", isSanpuku(juliusDate(new Date(2016,7,17))));
-
-    checkStr("初伏", isSanpuku(juliusDate(new Date(2014,6,18))));
-    checkStr("中伏", isSanpuku(juliusDate(new Date(2014,6,28))));
-    checkStr("末伏", isSanpuku(juliusDate(new Date(2014,7,7))));
-}
-function testIsNyubai() {
-    checkBool(false, isNyubai(juliusDate(new Date(2016,5,9))));
-    checkBool(true,  isNyubai(juliusDate(new Date(2016,5,10))));
-    checkBool(false, isNyubai(juliusDate(new Date(2016,5,11))));
-
-    checkBool(false, isNyubai(juliusDate(new Date(2014,5,10))));
-    checkBool(true,  isNyubai(juliusDate(new Date(2014,5,11))));
-    checkBool(false, isNyubai(juliusDate(new Date(2014,5,12))));
-}
-function testIsHangesyo() {
-    checkBool(false, isHangesyo(juliusDate(new Date(2014,6,1))));
-    checkBool(true,  isHangesyo(juliusDate(new Date(2014,6,2))));
-    checkBool(false, isHangesyo(juliusDate(new Date(2014,6,3))));
-    
-    checkBool(false, isHangesyo(juliusDate(new Date(2016,5,30))));
-    checkBool(true,  isHangesyo(juliusDate(new Date(2016,6,1))));
-    checkBool(false, isHangesyo(juliusDate(new Date(2016,6,2))));
-}
-function testDoyo() {
-    checkStr("", isDoyoStart(juliusDate(new Date(2014,0,16))));
-    checkStr("冬土用入", isDoyoStart(juliusDate(new Date(2014,0,17))));
-    checkStr("", isDoyoStart(juliusDate(new Date(2014,0,18))));
-
-    checkStr("", isDoyoEnd(juliusDate(new Date(2014,1,2))));
-    checkStr("冬土用明", isDoyoEnd(juliusDate(new Date(2014,1,3))));
-    checkStr("", isDoyoEnd(juliusDate(new Date(2014,1,4))));    
-    
-    checkStr("春土用入", isDoyoStart(juliusDate(new Date(2014,3,17))));
-    checkStr("夏土用入", isDoyoStart(juliusDate(new Date(2014,6,20))));
-    checkStr("秋土用入", isDoyoStart(juliusDate(new Date(2014,9,20))));
-
-    checkStr("春土用明", isDoyoEnd(juliusDate(new Date(2014,4,4))));
-    checkStr("夏土用明", isDoyoEnd(juliusDate(new Date(2014,7,6))));
-    checkStr("秋土用明", isDoyoEnd(juliusDate(new Date(2014,10,6))));
-}
-function testIsDaysFromRissyun() {
-    // 二百十日
-    checkBool(false, isDaysFromRissyun(210, juliusDate(new Date(2016,7,30))));
-    checkBool(true,  isDaysFromRissyun(210, juliusDate(new Date(2016,7,31))));
-    checkBool(false, isDaysFromRissyun(210, juliusDate(new Date(2016,8,1))));
-    
-    checkBool(true,  isDaysFromRissyun(210, juliusDate(new Date(2017,8,1))));
-    checkBool(true,  isDaysFromRissyun(210, juliusDate(new Date(2018,8,1))));
-    checkBool(true,  isDaysFromRissyun(210, juliusDate(new Date(2019,8,1))));
-
-    // 二百二十日
-    checkBool(false, isDaysFromRissyun(220, juliusDate(new Date(2016,8,9))));
-    checkBool(true,  isDaysFromRissyun(220, juliusDate(new Date(2016,8,10))));
-    checkBool(false, isDaysFromRissyun(220, juliusDate(new Date(2016,8,11))));
-    
-    checkBool(true,  isDaysFromRissyun(220, juliusDate(new Date(2017,8,11))));
-    checkBool(true,  isDaysFromRissyun(220, juliusDate(new Date(2018,8,11))));
-    checkBool(true,  isDaysFromRissyun(220, juliusDate(new Date(2019,8,11))));
-}
-function testJippouGure() {
-    checkBool(false, isJippouGureStart(juliusDate(new Date(2014, 4, 12))));
-    checkBool(true,  isJippouGureStart(juliusDate(new Date(2014, 4, 13))));
-    checkBool(false, isJippouGureStart(juliusDate(new Date(2014, 4, 14))));
-    
-    checkBool(false, isJippouGureEnd(juliusDate(new Date(2014, 4, 21))));
-    checkBool(true,  isJippouGureEnd(juliusDate(new Date(2014, 4, 22))));
-    checkBool(false, isJippouGureEnd(juliusDate(new Date(2014, 4, 23))));
-}
-function testTenichiTenjo() {
-    checkBool(false, isTenichiTenjoStart(juliusDate(new Date(2014, 4, 21))));
-    checkBool(true,  isTenichiTenjoStart(juliusDate(new Date(2014, 4, 22))));
-    checkBool(false, isTenichiTenjoStart(juliusDate(new Date(2014, 4, 23))));
-    
-    checkBool(false, isTenichiTenjoEnd(juliusDate(new Date(2014, 5, 5))));
-    checkBool(true,  isTenichiTenjoEnd(juliusDate(new Date(2014, 5, 6))));
-    checkBool(false, isTenichiTenjoEnd(juliusDate(new Date(2014, 5, 7))));
-}
-function testIsIchiryuManbai() {
-    // 2016/1/7 は一粒万倍日
-    checkBool(false, isIchiryuManbai(juliusDate(new Date(2016,0,6))));
-    checkBool(true,  isIchiryuManbai(juliusDate(new Date(2016,0,7))));
-    checkBool(false, isIchiryuManbai(juliusDate(new Date(2016,0,8))));
-    
-    checkBool(true,  isIchiryuManbai(juliusDate(new Date(2016,0,10)))); // 2016/1/10 も
-}
-function testIsTensya() {
-    checkBool(false, isTensya(juliusDate(new Date(2016, 1, 25))));
-    checkBool(true,  isTensya(juliusDate(new Date(2016, 1, 26))));
-    checkBool(false, isTensya(juliusDate(new Date(2016, 1, 27))));
-}
-function testIsFujoju() {
-    // 2016/01/08 は不成就日
-    checkBool(false, isFujoju(oldCalendar(juliusDate(new Date(2016, 0, 7)))));
-    checkBool(true,  isFujoju(oldCalendar(juliusDate(new Date(2016, 0, 8)))));
-    checkBool(false, isFujoju(oldCalendar(juliusDate(new Date(2016, 0, 9)))));
-}
-function testIsHassen() {
-    checkBool(true,  isHassen(juliusDate(new Date(2014, 3, 16))));
-    checkBool(false, isHassen(juliusDate(new Date(2014, 3, 17))));
-    checkBool(true,  isHassen(juliusDate(new Date(2014, 3, 18))));
-    checkBool(true,  isHassen(juliusDate(new Date(2014, 3, 19))));
-    checkBool(true,  isHassen(juliusDate(new Date(2014, 3, 20))));
-    checkBool(false, isHassen(juliusDate(new Date(2014, 3, 21))));
-    checkBool(true,  isHassen(juliusDate(new Date(2014, 3, 22))));
-    checkBool(false, isHassen(juliusDate(new Date(2014, 3, 23))));
-    checkBool(false, isHassen(juliusDate(new Date(2014, 3, 24))));
-}
-function testIsSanrinbou() {
-    // 2016/1/13は三輪宝
-    checkBool(false, isSanrinbou(juliusDate(new Date(2016, 0, 12))));
-    checkBool(true,  isSanrinbou(juliusDate(new Date(2016, 0, 13))));
-    checkBool(false, isSanrinbou(juliusDate(new Date(2016, 0, 14))));
-}
-
-function runTests() {
-    testJuliusDate();
-    testDynamicalTime();
-    testSolarEclipticLongitude();
-    testLunarEclipticLongitude();
-    testFindNibunNishi();
-    testFindSeason();
-    testFindChukis();
-    testFindSaku();
-    testOldCalendar();
-    testRokki();
-    testEto();
-    testKyusei();
-    testFindSetsugetsu();
-    testChoku();
-    testShuku();
-    testNattin();
-    testNijuShisekki();
-    testIsSetsubun();
-    testIsHachijuHachiya();
-    testHigan();
-    testIsSyanichi();
-    testIsSanpuku();
-    testIsNyubai();
-    testIsHangesyo();
-    testDoyo();
-    testIsDaysFromRissyun();
-    testJippouGure();
-    testTenichiTenjo();
-    testIsIchiryuManbai();
-    testIsTensya();
-    testIsFujoju();
-    testIsHassen();
-    testIsSanrinbou();
+if (typeof module != "undefined") {
+    // node.js でテストする時用の exports
+    // 厳密には今時 browserify を使うべきだが、ひとまず簡易な仕組みで対応する。
+    module.exports = {
+        juliusDate: juliusDate,
+        fromJuliusDate: fromJuliusDate,
+        dynamicalTime: dynamicalTime,
+        solarEclipticLongitude: solarEclipticLongitude,
+        lunarEclipticLongitude: lunarEclipticLongitude, 
+        findNibunNishi: findNibunNishi,
+        findSeason: findSeason,
+        findChukis: findChukis,
+        findSaku: findSaku,
+        findSakus: findSakus,
+        oldCalendar: oldCalendar,
+        rokki: rokki,
+        OldDate: OldDate,
+        eto: eto,
+        kyusei: kyusei,
+        findSetsugetsu: findSetsugetsu,
+        choku: choku,
+        shuku: shuku,
+        nattin: nattin,
+        nijuShisekki: nijuShisekki,
+        isSetsubun: isSetsubun,
+        isHachijuHachiya: isHachijuHachiya,
+        isHiganStart: isHiganStart,
+        isHiganEnd: isHiganEnd,
+        isSyanichi: isSyanichi,
+        isSanpuku: isSanpuku,
+        isNyubai: isNyubai,
+        isHangesyo: isHangesyo,
+        isDoyoStart: isDoyoStart,
+        isDoyoEnd: isDoyoEnd,
+        isDaysFromRissyun: isDaysFromRissyun,
+        isJippouGureStart: isJippouGureStart,
+        isJippouGureEnd: isJippouGureEnd,
+        isTenichiTenjoStart: isTenichiTenjoStart,
+        isTenichiTenjoEnd: isTenichiTenjoEnd,
+        isIchiryuManbai: isIchiryuManbai,
+        isTensya: isTensya,
+        isFujoju: isFujoju,
+        isHassen: isHassen,
+        isSanrinbou: isSanrinbou, 
+    };
 }

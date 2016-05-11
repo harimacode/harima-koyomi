@@ -4,7 +4,7 @@
   "description": "",
   "main": "old_calendar.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/harimacode/harima-koyomi/issues"
   },
-  "homepage": "https://github.com/harimacode/harima-koyomi#readme"
+  "homepage": "https://github.com/harimacode/harima-koyomi#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
+  }
 }
