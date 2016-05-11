@@ -360,3 +360,14 @@ describe('isNyubai', function () {
         assert.equal(oc.isNyubai(oc.juliusDate(new Date(2014,5,12))), false);
     });
 });
+describe('isHangesyo', function () {
+    it('should return if it is hangesyo', function () {
+        assert.equal(oc.isHangesyo(oc.juliusDate(new Date(2014,6,1))), false);
+        assert.equal(oc.isHangesyo(oc.juliusDate(new Date(2014,6,2))), true);
+        assert.equal(oc.isHangesyo(oc.juliusDate(new Date(2014,6,3))), false);
+        
+        assert.equal(oc.isHangesyo(oc.juliusDate(new Date(2016,5,30))), false);
+        assert.equal(oc.isHangesyo(oc.juliusDate(new Date(2016,6,1))), true);
+        assert.equal(oc.isHangesyo(oc.juliusDate(new Date(2016,6,2))), false);
+    });
+});
