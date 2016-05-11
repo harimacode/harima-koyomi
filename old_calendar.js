@@ -1073,14 +1073,6 @@ function check(result, a, b) {
         alert("FAILED: " + a + " !≒ " + b);
     }
 }
-function testEto() {
-    // 1873年 1月12日 が甲子の基準日
-    checkStr("甲子", eto(juliusDate(new Date(1873,0,12))));
-    checkStr("丁巳", eto(juliusDate(new Date(2014,3,16))));
-    checkStr("戊午", eto(juliusDate(new Date(2014,3,17))));
-    checkStr("己未", eto(juliusDate(new Date(2014,3,18))));
-    checkStr("庚申", eto(juliusDate(new Date(2014,3,19))));
-}
 function testKyusei() {
     checkStr("六白", kyusei(juliusDate(new Date(2014,3,16))));
     checkStr("七赤", kyusei(juliusDate(new Date(2014,3,17))));
@@ -1323,7 +1315,6 @@ function testIsSanrinbou() {
 }
 
 function runTests() {
-    testEto();
     testKyusei();
     testFindSetsugetsu();
     testChoku();
@@ -1362,4 +1353,5 @@ module.exports = {
     oldCalendar: oldCalendar,
     rokki: rokki,
     OldDate: OldDate,
+    eto: eto,
 }

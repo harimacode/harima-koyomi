@@ -177,3 +177,12 @@ describe('rokki', function () {
         assert.equal(oc.rokki(new oc.OldDate(true, 3, 23)), '先勝', '閏月も同じだったはず'); 
     });
 });
+describe('eto', function () {
+    it('should return correct etos', function () {
+        assert.equal(oc.eto(oc.juliusDate(new Date(1873,0,12))), '甲子', '1873年 1月12日 が甲子の基準日');
+        assert.equal(oc.eto(oc.juliusDate(new Date(2014,3,16))), '丁巳');
+        assert.equal(oc.eto(oc.juliusDate(new Date(2014,3,17))), '戊午');
+        assert.equal(oc.eto(oc.juliusDate(new Date(2014,3,18))), '己未');
+        assert.equal(oc.eto(oc.juliusDate(new Date(2014,3,19))), '庚申');
+    });
+});
