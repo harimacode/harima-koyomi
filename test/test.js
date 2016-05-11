@@ -479,3 +479,10 @@ describe('isHassen', function () {
         assert.equal(oc.isHassen(oc.juliusDate(new Date(2014, 3, 24))), false);
     });
 });
+describe('isSanrinbou', function () {
+    it('should return if it is sanrinbou', function () {
+        assert.equal(oc.isSanrinbou(oc.juliusDate(new Date(2016, 0, 12))), false);
+        assert.equal(oc.isSanrinbou(oc.juliusDate(new Date(2016, 0, 13))), true, '2016/1/13は三輪宝');
+        assert.equal(oc.isSanrinbou(oc.juliusDate(new Date(2016, 0, 14))), false);
+    });
+});

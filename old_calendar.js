@@ -1073,16 +1073,6 @@ function check(result, a, b) {
         alert("FAILED: " + a + " !≒ " + b);
     }
 }
-function testIsSanrinbou() {
-    // 2016/1/13は三輪宝
-    checkBool(false, isSanrinbou(juliusDate(new Date(2016, 0, 12))));
-    checkBool(true,  isSanrinbou(juliusDate(new Date(2016, 0, 13))));
-    checkBool(false, isSanrinbou(juliusDate(new Date(2016, 0, 14))));
-}
-
-function runTests() {
-    testIsSanrinbou();
-}
 
 module.exports = {
     juliusDate: juliusDate,
@@ -1123,5 +1113,6 @@ module.exports = {
     isIchiryuManbai: isIchiryuManbai,
     isTensya: isTensya,
     isFujoju: isFujoju,
-    isHassen: isHassen, 
+    isHassen: isHassen,
+    isSanrinbou: isSanrinbou, 
 }
