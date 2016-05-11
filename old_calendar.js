@@ -1073,33 +1073,6 @@ function check(result, a, b) {
         alert("FAILED: " + a + " !≒ " + b);
     }
 }
-function testOldCalendar() {
-    // 1994年5月1日
-    checkStr("3月21日", oldCalendar(juliusDate(new Date(1994,4,1))).toString());
-    // 1993年5月1日
-    checkStr("閏3月10日", oldCalendar(juliusDate(new Date(1993,4,1))).toString());
-    // 1985年1月1日
-    checkStr("11月11日", oldCalendar(juliusDate(new Date(1985,0,1))).toString());
-    // alert(oldCalendar(juliusDate(new Date(2012,0,1))));
-    
-    // // 2002-2021 年元日 は http://www.ajnet.ne.jp/diary/ との一致を確認
-    // var dates = [];
-    // for (var y = 2002; y < 2051; ++y) {
-    //     dates.push(y + ':' + oldCalendar(juliusDate(new Date(y,0,1))));
-    // }
-    // alert(dates.join('\n'));
-    
-    // 2016 年については正しい旧暦が得られていることを確認
-    // var dates = [];
-    // var jd = juliusDate(new Date(2016,6,1));
-    // for (var i = 0; i < 200; ++i) {
-    //     var d = fromJuliusDate(jd + i);
-    //     var s = (d.getMonth()+1) + "/" + d.getDate();
-    //     dates.push(s + '=>' + oldCalendar(jd + i));
-    // }
-    // alert(dates.join('\n'));
-    checkStr("8月1日", oldCalendar(juliusDate(new Date(2017,8,20))).toString());
-}
 function testRokki() {
     checkStr("先勝", rokki(new OldDate(false, 3, 17)));
     checkStr("友引", rokki(new OldDate(false, 3, 18)));
@@ -1360,7 +1333,6 @@ function testIsSanrinbou() {
 }
 
 function runTests() {
-    testOldCalendar();
     testRokki();
     testEto();
     testKyusei();
@@ -1398,4 +1370,5 @@ module.exports = {
     findChukis: findChukis,
     findSaku: findSaku,
     findSakus: findSakus,
+    oldCalendar: oldCalendar,
 }
