@@ -40,7 +40,7 @@ function formatOldDate(y, m, d) {
          + oy + "年 " + om + "月 " + od + "日 " + r + "です。";
 }
 
-for (var y = 2000; y < 2070; ++y) {
+for (var y = 2000; y <= 2070; ++y) {
     for (var m = 1; m <= 12; ++m) {
         var days = 31;
         if ([2, 4, 6, 9, 11].indexOf(m) > -1) {
