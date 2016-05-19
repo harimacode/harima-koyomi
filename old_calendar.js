@@ -1,3 +1,7 @@
+function int(v) {
+    return v | 0;
+}
+
 /*!
  * Date オブジェクトからユリウス日を計算します。
  * ユリウス日は浮動小数点数として表現され、
@@ -17,10 +21,10 @@ function juliusDate(date) {
         --year;
     }
     // alert(year + "/" + month + "/" + day);
-    return Math.floor(365.25 * year)
-         + Math.floor(year / 400)
-         - Math.floor(year / 100)
-         + Math.floor(30.59 * (month - 2))
+    return int(365.25 * year)
+         + int(year / 400)
+         - int(year / 100)
+         + int(30.59 * (month - 2))
          + day
          + 1721088
          + hours / 24;
@@ -29,20 +33,20 @@ function fromJuliusDate(jd) {
     // http://mysteryart.web.fc2.com/library/calsmpl/cldttojd.html
     jd+=1; // JST
     
-    var z  = Math.floor(jd);
+    var z  = int(jd);
     var f  = jd-z;
-    var aa = Math.floor((z-1867216.25)/36524.25);
-    var a  = Math.floor(z+1+aa-Math.floor(aa/4));
+    var aa = int((z-1867216.25)/36524.25);
+    var a  = int(z+1+aa-int(aa/4));
     var b  = a+1524;
-    var c  = Math.floor((b-122.1)/365.25);
-    var k  = Math.floor(365.25*c);
-    var e  = Math.floor((b-k)/30.6001);
+    var c  = int((b-122.1)/365.25);
+    var k  = int(365.25*c);
+    var e  = int((b-k)/30.6001);
 
-    var day   = Math.floor(b-k-Math.floor(30.6001*e));
+    var day   = int(b-k-int(30.6001*e));
     var month = e - (e < 13.5 ? 1 : 13);
     var year  = c - (month > 2.5 ? 4716 : 4715);
-    var hours   = Math.floor(f*24);
-    var minutes = Math.floor((f*24-hours)*60); // おそらく分までの精度しかない…
+    var hours   = int(f*24);
+    var minutes = int((f*24-hours)*60); // おそらく分までの精度しかない…
     return new Date(year, month-1, day, hours, minutes);
 }
 
@@ -219,7 +223,7 @@ function findSeason(jd) {
         angle -= 360;
     }
     var season = angle / 90;
-    if (jd < Math.floor(sekki[1])) {
+    if (jd < int(sekki[1])) {
         --season;
     }
     return season;
@@ -243,7 +247,7 @@ Cache.prototype = {
  */
 var chukisCache = new Cache();
 function findChukis(t) {
-    var key = Math.floor(t);
+    var key = int(t);
     return chukisCache.get(key, function () {
         var rv = [];
         for (var i = 0; i < 3; ++i) {
@@ -265,7 +269,7 @@ function findSekki(t, byAngle, offset) {
     var dt = dynamicalTime(t);
     var sel = solarEclipticLongitude(dt) + offset;
     // alert(sel);
-    var div = Math.floor(sel / byAngle);
+    var div = int(sel / byAngle);
     var angle = div * byAngle;
     while (true) {
         var deltaAngle = sel - angle;
@@ -346,7 +350,7 @@ function findSakuBou(t, diff) {
  */
 var sakusCache = new Cache();
 function findSakus(t) {
-    var key = Math.floor(t);
+    var key = int(t);
     return sakusCache.get(key, function () {
         return findSakuBous(t, 0); 
     });
@@ -365,7 +369,7 @@ function findSakuBous(t, diff) {
     var rv = [];
     for (var i = 0; i < 5; ++i) {
         var saku = findSakuBou(t, diff);
-        if (i != 0 && Math.abs(Math.floor(rv[rv.length - 1]) - Math.floor(saku)) <= 26) {
+        if (i != 0 && Math.abs(int(rv[rv.length - 1]) - int(saku)) <= 26) {
             t = rv[rv.length - 1] + 35;
             saku = findSakuBou(t, diff);
         }
@@ -380,14 +384,14 @@ function findSakuBous(t, diff) {
     //   初期値の与え方によっては正規化を行っても目的にあった解を得る事ができず、
     //   朔日行列が正常に組み立てられない場合があります。 本スクリプトでは、以下の
     //   ２つのケースを想定して対策を施しておきました。
-    if (Math.floor(rv[1]) <= Math.floor(nibunNishi)) {
+    if (int(rv[1]) <= int(nibunNishi)) {
         //      i   二分二至の前の朔の時刻を２組求めてしまう場合。以下の図ように、
         // alert("hit");
         rv.shift();
         rv.push(findSakuBou(rv[3] + 35, diff)); // 前の朔 + 35
     }
     // TODO: 文献の以下のケースへの対応
-    else if (Math.floor(rv[0]) >= Math.floor(nibunNishi)) {
+    else if (int(rv[0]) >= int(nibunNishi)) {
         //     ii   二分二至の後の朔の時刻を求めてしまう場合。以下の図ように、
         //    ［朔１の時刻］≧［直前の二分二至の時刻］
         rv.pop();
@@ -493,7 +497,7 @@ OldDate.prototype = {
  */
 var bugAlerted = new Cache();
 function oldCalendar(jd) {
-    jd = Math.floor(jd);
+    jd = int(jd);
     var gd = fromJuliusDate(jd);
     
     var nibunNishi = findNibunNishi(jd);
@@ -508,7 +512,7 @@ function oldCalendar(jd) {
     
     var matrix = [];
     sakus.forEach(function (saku) {
-        var jd = Math.floor(saku);
+        var jd = int(saku);
         // 閏？, 旧暦の月, ユリウス日, グレゴリオ暦
         matrix.push([false, 0, jd, fromJuliusDate(jd)]);
     });
@@ -522,7 +526,7 @@ function oldCalendar(jd) {
         }
         var containsChuki = false;
         chukis.forEach(function (chuki) {
-            var chukiDate = Math.floor(chuki);
+            var chukiDate = int(chuki);
             if (start <= chukiDate && (!next || chukiDate < next)) {
                 containsChuki = true;
             }
@@ -589,7 +593,7 @@ function eto(jd) {
     var kJikkan = "甲乙丙丁戊己庚辛壬癸";
     var kJunishi = "子丑寅卯辰巳午未申酉戌亥";
     // 1873年 1月12日 が甲子の基準日
-    var days = Math.floor(jd) - Math.floor(juliusDate(new Date(1873, 0, 12)));
+    var days = int(jd) - int(juliusDate(new Date(1873, 0, 12)));
     return kJikkan[days % kJikkan.length] +
            kJunishi[days % kJunishi.length];
 }
@@ -604,7 +608,7 @@ function kyusei(jd) {
     // https://ja.wikipedia.org/wiki/%E4%B9%9D%E6%98%9F
     // http://koyomi.vis.ne.jp/doc/mlwa/200703270.htm
     var kKyuseis = allKyuseis();
-    jd = Math.floor(jd);
+    jd = int(jd);
     // 対象の日を含む二至
     var nishi = findSekki(jd+1, 180, 90);
     // 次の二至
@@ -613,20 +617,20 @@ function kyusei(jd) {
     // alert(theOther);
     
     var days;
-    var d1 = Math.floor(nishi[1]);
+    var d1 = int(nishi[1]);
     while (eto(d1) != "甲子") {
         --d1;
     }
-    days = Math.floor(nishi[1]) - d1;
+    days = int(nishi[1]) - d1;
     if (days > 29) {
         d1 += 60; // 基準日
     }
     
-    var d2 = Math.floor(theOther[1]);
+    var d2 = int(theOther[1]);
     while (eto(d2) != "甲子") {
         --d2;
     }
-    days = Math.floor(theOther[1]) - d2;
+    days = int(theOther[1]) - d2;
     if (days > 29) {
         d2 += 60; // 基準日
     }
@@ -664,7 +668,7 @@ function findSetsugetsu(jd) {
     // findSekki() は「前」の日付を探しに行くため、当日も含めるには +1 する
     // 必要があります。
     // FIXME: 元にしたスクリプトの仕様に引きずられている部分…
-    jd = Math.floor(jd) + 1;
+    jd = int(jd) + 1;
     var sekki = findSekki(jd, 30, 15);
     return [(normalizeAngle(sekki[0] + 15) / 30 + 1) % 12 + 1, sekki[1]]
 }
@@ -682,13 +686,13 @@ function choku(jd) {
     var etoToFind = kEto[s[0]-1];
     // alert(fromJuliusDate(s[1]));
     // alert(s[0] + "=>" + etoToFind);
-    var first = Math.floor(s[1]);
+    var first = int(s[1]);
     for (var i = 0; i < kEto.length; ++i) {
         if (etoToFind == eto(first + i).charAt(1)) {
             // ここで first + i が建となる日
             var ken = first + i;
             // alert(fromJuliusDate(ken));
-            var days = Math.floor(jd) - ken;
+            var days = int(jd) - ken;
             while (days < 0) {
                 days += kChokus.length;
             }
@@ -727,14 +731,14 @@ function nattin(jd) {
     while (eto(kousi) != "甲子") {
         --kousi;
     }
-    return allNattins()[Math.floor((jd - kousi) / 2)];
+    return allNattins()[int((jd - kousi) / 2)];
 }
 
 /**
  * 本日が二十四節気の切り替わり日ならその節気を返す。
  */
 function nijuShisekki(jd) {
-    jd = Math.floor(jd);
+    jd = int(jd);
     var kSekkis = [
         "春分", "清明", "穀雨", "立夏", "小満", "芒種",
         "夏至", "小暑", "大暑", "立秋", "処暑", "白露",
@@ -743,7 +747,7 @@ function nijuShisekki(jd) {
     ];
     var sekki = findSekki(jd+1, 15);
     // alert(sekki);
-    if (Math.floor(sekki[1]) == jd) {
+    if (int(sekki[1]) == jd) {
         return kSekkis[sekki[0] / 15];
     }
     return "";
@@ -768,7 +772,7 @@ function isSyanichi(jd) {
     }
     var nibun = findSekki(jd+10, 180);
     var syunsya = nibun[0] == 0;
-    nibun = Math.floor(nibun[1]);
+    nibun = int(nibun[1]);
     if (Math.abs(nibun - jd) > 10) {
         return "";
     }
@@ -797,7 +801,7 @@ function findSanpuku(jd) {
         var indices = aPair[1];
         var adjustment = 10 * (indices[indices.length - 1] + 1);
         var sekki = findSekki(jd + adjustment, 360, -aPair[0]);
-        sekki = Math.floor(sekki[1]);
+        sekki = int(sekki[1]);
         // alert(fromJuliusDate(sekki));
         var index = 0;
         var daysAfter = 0;
@@ -817,23 +821,23 @@ function findSanpuku(jd) {
 function isSanpuku(jd) {
     var sanpuku = findSanpuku(jd);
     for (var i = 0; i < sanpuku.length; ++i) {
-        if (Math.floor(sanpuku[i]) == jd) {
+        if (int(sanpuku[i]) == jd) {
             return ["初伏", "中伏", "末伏"][i]
         }
     }
     return "";
 }
 function isNyubai(jd) {
-    var nyubai = Math.floor(findSekki(jd+1, 360, -80)[1]);
+    var nyubai = int(findSekki(jd+1, 360, -80)[1]);
     return jd == nyubai;
 }
 function isHangesyo(jd) {
-    var hangesyo = Math.floor(findSekki(jd+1, 360, -100)[1]);
+    var hangesyo = int(findSekki(jd+1, 360, -100)[1]);
     return jd == hangesyo;
 }
 function isDoyoStart(jd) {
     var doyoStart = findSekki(jd+1, 90, -27);
-    return jd == Math.floor(doyoStart[1]) ? "春夏秋冬".charAt((doyoStart[0]-27)/90%4) + "土用入" : "";
+    return jd == int(doyoStart[1]) ? "春夏秋冬".charAt((doyoStart[0]-27)/90%4) + "土用入" : "";
 }
 function isDoyoEnd(jd) {
     var kYonritsu = ["立夏", "立秋", "立冬", "立春"];
