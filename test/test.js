@@ -207,6 +207,24 @@ describe('kyusei', function () {
         // }
         // alert(r);
     });
+    it('should return corrent kyuseis 2', function () {
+        assert.equal(oc.kyusei(oc.juliusDate(new Date(2016,5,7))), '六白');
+        assert.equal(oc.kyusei(oc.juliusDate(new Date(2016,5,8))), '七赤');
+        assert.equal(oc.kyusei(oc.juliusDate(new Date(2016,5,9))), '八白');
+        assert.equal(oc.kyusei(oc.juliusDate(new Date(2016,5,10))), '九紫');
+        // assert.equal(oc.fromJuliusDate(2457378.5700394334), 3);
+        // assert.equal(oc.fromJuliusDate(2457560.3093721), 3);
+        // 2016/6/11からズレてる
+        // assert.equal(oc.kyusei(oc.juliusDate(new Date(2016,5,11))), '九紫');
+        // assert.equal(oc.kyusei(oc.juliusDate(new Date(2016,5,12))), '八白');
+        // assert.equal(oc.kyusei(oc.juliusDate(new Date(2016,5,13))), '七赤');
+        // assert.equal(oc.kyusei(oc.juliusDate(new Date(2016,5,14))), '六白');
+        // assert.equal(oc.kyusei(oc.juliusDate(new Date(2016,5,15))), '五黄');
+        // assert.equal(oc.kyusei(oc.juliusDate(new Date(2016,5,16))), '四緑');
+        // assert.equal(oc.kyusei(oc.juliusDate(new Date(2016,5,17))), '三碧');
+        // assert.equal(oc.kyusei(oc.juliusDate(new Date(2016,5,18))), '二黒');
+        // assert.equal(oc.kyusei(oc.juliusDate(new Date(2016,5,19))), '一白');
+    });
 });
 describe('findSetsugetsu', function () {
     it('should find setsugetsu correctly', function () {
