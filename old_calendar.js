@@ -637,8 +637,13 @@ function kyusei(jd) {
     
     var diff = d2 - d1;
     days = jd - d1;
+    var targetNishi = nishi;
+    if (days >= diff) {
+        days -= diff;
+        targetNishi = theOther;
+    }
     
-    var isYouton = nishi[0] == 270;
+    var isYouton = targetNishi[0] == 270;
     var i = isYouton ? 0 : 8;
     var dir = isYouton ? +1 : -1;
     if (diff == 180) {

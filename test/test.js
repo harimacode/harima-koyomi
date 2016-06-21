@@ -9,6 +9,13 @@ function datesAreSameMinute(a, b) {
         && a.getHours() == b.getHours()
         && a.getMinutes() == b.getMinutes();
 }
+function datesAreSameHour(a, b) {
+    // 時までだけ比較する。
+    return a.getFullYear() == b.getFullYear()
+        && a.getMonth() == b.getMonth()
+        && a.getDate() == b.getDate()
+        && a.getHours() == b.getHours();
+}
 const DELTA_P = 0.00000000001;
 const DELTA_R = 0.0001;
 
@@ -56,6 +63,20 @@ describe('findNibunNishi', function () {
         assert.approximately(oc.findNibunNishi(2449472.625)[1], 2449432.2276343490000000, DELTA_R);
         assert.isOk(datesAreSameMinute(oc.fromJuliusDate(oc.findNibunNishi(2449472.625)[1]), new Date(1994,2,21,5,27,48)));
         assert.approximately(oc.findNibunNishi(oc.juliusDate(new Date(1984,11,23)))[1], 2446056.0489, DELTA_R);
+    });
+    it('should return correct nibun nishi 2', function () {
+        // 2016/6/11 での陽遁・隠遁の切り替わりが動作していなかった
+        // 夏至の計算ミスを疑ったが、ズレは分単位で無関係であった
+        assert.isOk(datesAreSameHour(oc.fromJuliusDate(oc.findNibunNishi(oc.juliusDate(new Date(2007,5,23)))[1]), new Date(2007,5,22,3,6))); // NG 5minズレ
+        assert.isOk(datesAreSameHour(oc.fromJuliusDate(oc.findNibunNishi(oc.juliusDate(new Date(2008,5,23)))[1]), new Date(2008,5,21,8,59))); // NG 4minズレ
+        assert.isOk(datesAreSameHour(oc.fromJuliusDate(oc.findNibunNishi(oc.juliusDate(new Date(2009,5,23)))[1]), new Date(2009,5,21,14,46))); // NG 3minズレ
+        assert.isOk(datesAreSameHour(oc.fromJuliusDate(oc.findNibunNishi(oc.juliusDate(new Date(2010,5,23)))[1]), new Date(2010,5,21,20,28))); // NG 1minズレ
+        assert.isOk(datesAreSameHour(oc.fromJuliusDate(oc.findNibunNishi(oc.juliusDate(new Date(2011,5,23)))[1]), new Date(2011,5,22,2,16))); // 分単位で一致
+        assert.isOk(datesAreSameHour(oc.fromJuliusDate(oc.findNibunNishi(oc.juliusDate(new Date(2012,5,23)))[1]), new Date(2012,5,21,8,9))); // NG 1minズレ
+        assert.isOk(datesAreSameHour(oc.fromJuliusDate(oc.findNibunNishi(oc.juliusDate(new Date(2013,5,23)))[1]), new Date(2013,5,21,14,4))); // NG 3minズレ
+        assert.isOk(datesAreSameHour(oc.fromJuliusDate(oc.findNibunNishi(oc.juliusDate(new Date(2014,5,23)))[1]), new Date(2014,5,21,19,51))); // NG 4minズレ
+        assert.isOk(datesAreSameHour(oc.fromJuliusDate(oc.findNibunNishi(oc.juliusDate(new Date(2015,5,23)))[1]), new Date(2015,5,22,1,38))); // NG 7minズレ
+        assert.isOk(datesAreSameHour(oc.fromJuliusDate(oc.findNibunNishi(oc.juliusDate(new Date(2016,5,23)))[1]), new Date(2016,5,21,7,34))); // NG 9minズレ
     });
 });
 describe('findSeason', function () {
@@ -206,6 +227,24 @@ describe('kyusei', function () {
         //     r.push(kyusei(juliusDate(new Date(1997,5,18+i))));
         // }
         // alert(r);
+    });
+    it('should return corrent kyuseis 2', function () {
+        // 2016/6/11 での陽遁・隠遁の切り替わりが動作していなかった
+        assert.equal(oc.kyusei(oc.juliusDate(new Date(2016,5,7))), '六白');
+        assert.equal(oc.kyusei(oc.juliusDate(new Date(2016,5,8))), '七赤');
+        assert.equal(oc.kyusei(oc.juliusDate(new Date(2016,5,9))), '八白');
+        assert.equal(oc.kyusei(oc.juliusDate(new Date(2016,5,10))), '九紫');
+
+        // ここからズレていた
+        assert.equal(oc.kyusei(oc.juliusDate(new Date(2016,5,11))), '九紫');
+        assert.equal(oc.kyusei(oc.juliusDate(new Date(2016,5,12))), '八白');
+        assert.equal(oc.kyusei(oc.juliusDate(new Date(2016,5,13))), '七赤');
+        assert.equal(oc.kyusei(oc.juliusDate(new Date(2016,5,14))), '六白');
+        assert.equal(oc.kyusei(oc.juliusDate(new Date(2016,5,15))), '五黄');
+        assert.equal(oc.kyusei(oc.juliusDate(new Date(2016,5,16))), '四緑');
+        assert.equal(oc.kyusei(oc.juliusDate(new Date(2016,5,17))), '三碧');
+        assert.equal(oc.kyusei(oc.juliusDate(new Date(2016,5,18))), '二黒');
+        assert.equal(oc.kyusei(oc.juliusDate(new Date(2016,5,19))), '一白');
     });
 });
 describe('findSetsugetsu', function () {
