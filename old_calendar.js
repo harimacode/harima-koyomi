@@ -790,7 +790,7 @@ function isSyanichi(jd) {
         ++daysAfter;
     }
     var syanichi = nibun + ((daysBefore < daysAfter) ? -daysBefore : daysAfter);
-    return syanichi == jd ? ("社日(" + (syunsya ? "春" : "秋") + ")") : "";
+    return syanichi == int(jd) ? ("社日(" + (syunsya ? "春" : "秋") + ")") : "";
 }
 function findSanpuku(jd) {
     var theEto = eto(jd);
@@ -826,7 +826,7 @@ function findSanpuku(jd) {
 function isSanpuku(jd) {
     var sanpuku = findSanpuku(jd);
     for (var i = 0; i < sanpuku.length; ++i) {
-        if (int(sanpuku[i]) == jd) {
+        if (int(sanpuku[i]) == int(jd)) {
             return ["初伏", "中伏", "末伏"][i]
         }
     }
@@ -834,15 +834,15 @@ function isSanpuku(jd) {
 }
 function isNyubai(jd) {
     var nyubai = int(findSekki(jd+1, 360, -80)[1]);
-    return jd == nyubai;
+    return int(jd) == nyubai;
 }
 function isHangesyo(jd) {
     var hangesyo = int(findSekki(jd+1, 360, -100)[1]);
-    return jd == hangesyo;
+    return int(jd) == hangesyo;
 }
 function isDoyoStart(jd) {
     var doyoStart = findSekki(jd+1, 90, -27);
-    return jd == int(doyoStart[1]) ? "春夏秋冬".charAt((doyoStart[0]-27)/90%4) + "土用入" : "";
+    return int(jd) == int(doyoStart[1]) ? "春夏秋冬".charAt((doyoStart[0]-27)/90%4) + "土用入" : "";
 }
 function isDoyoEnd(jd) {
     var kYonritsu = ["立夏", "立秋", "立冬", "立春"];

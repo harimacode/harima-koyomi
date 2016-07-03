@@ -228,7 +228,7 @@ describe('kyusei', function () {
         // }
         // alert(r);
     });
-    it('should return corrent kyuseis 2', function () {
+    it('should return correct kyuseis 2', function () {
         // 2016/6/11 での陽遁・隠遁の切り替わりが動作していなかった
         assert.equal(oc.kyusei(oc.juliusDate(new Date(2016,5,7))), '六白');
         assert.equal(oc.kyusei(oc.juliusDate(new Date(2016,5,8))), '七赤');
@@ -310,6 +310,9 @@ describe('isSetsubun', function () {
         assert.equal(oc.isSetsubun(oc.juliusDate(new Date(2025,1,2))), true);
         assert.equal(oc.isSetsubun(oc.juliusDate(new Date(2025,1,3))), false);
     });
+    it('works fine with date not at 0:00AM', function () {
+        assert.equal(oc.isSetsubun(oc.juliusDate(new Date(2016,1,3,1,23))), true);
+    });
 });
 describe('isHachijuHachiya', function () {
     it('should return if it is 88-ya', function () {
@@ -321,6 +324,9 @@ describe('isHachijuHachiya', function () {
         assert.equal(oc.isHachijuHachiya(oc.juliusDate(new Date(2018,4,2))), true);
         assert.equal(oc.isHachijuHachiya(oc.juliusDate(new Date(2019,4,2))), true);
     });
+    it('works fine with date not at 0:00AM', function () {
+        assert.equal(oc.isHachijuHachiya(oc.juliusDate(new Date(2016,4,1,1,23))), true);
+    });
 });
 describe('isHiganStart', function () {
     it('should return if it is the start day of higan', function () {
@@ -328,12 +334,18 @@ describe('isHiganStart', function () {
         assert.equal(oc.isHiganStart(oc.juliusDate(new Date(2014,8,20))), true);
         assert.equal(oc.isHiganStart(oc.juliusDate(new Date(2014,8,21))), false);
     });
+    it('works fine with date not at 0:00AM', function () {
+        assert.equal(oc.isHiganStart(oc.juliusDate(new Date(2014,8,20,1,23))), true);
+    });
 });
 describe('isHiganEnd', function () {
     it('should return if it is the end day of higan', function () {
         assert.equal(oc.isHiganEnd(oc.juliusDate(new Date(2014,8,25))), false);
         assert.equal(oc.isHiganEnd(oc.juliusDate(new Date(2014,8,26))), true);
         assert.equal(oc.isHiganEnd(oc.juliusDate(new Date(2014,8,27))), false);
+    });
+    it('works fine with date not at 0:00AM', function () {
+        assert.equal(oc.isHiganEnd(oc.juliusDate(new Date(2014,8,26,1,23))), true);
     });
 });
 describe('isSyanichi', function () {
@@ -349,7 +361,6 @@ describe('isSyanichi', function () {
         assert.equal(oc.isSyanichi(oc.juliusDate(new Date(2012,2,18))), '社日(春)');
         assert.equal(oc.isSyanichi(oc.juliusDate(new Date(2013,2,23))), '社日(春)');
         assert.equal(oc.isSyanichi(oc.juliusDate(new Date(2014,2,18))), '社日(春)');
-
     });
     it('should return if it is fall syanichi', function () {
         assert.equal(oc.isSyanichi(oc.juliusDate(new Date(2007,8,20))), '');
@@ -363,6 +374,9 @@ describe('isSyanichi', function () {
         assert.equal(oc.isSyanichi(oc.juliusDate(new Date(2012,8,24))), '社日(秋)');
         assert.equal(oc.isSyanichi(oc.juliusDate(new Date(2013,8,19))), '社日(秋)');
         assert.equal(oc.isSyanichi(oc.juliusDate(new Date(2014,8,24))), '社日(秋)');
+    });
+    it('works fine with date not at 0:00AM', function () {
+        assert.equal(oc.isSyanichi(oc.juliusDate(new Date(2007,2,25,1,23))), '社日(春)');
     });
 });
 describe('isSanpuku', function () {
@@ -387,6 +401,11 @@ describe('isSanpuku', function () {
 
         assert.equal(oc.isSanpuku(oc.juliusDate(new Date(2014,7,7))), '末伏');
     });
+    it('works fine with date not at 0:00AM', function () {
+        assert.equal(oc.isSanpuku(oc.juliusDate(new Date(2016,6,17,1,23))), '初伏');
+        assert.equal(oc.isSanpuku(oc.juliusDate(new Date(2016,6,27,1,23))), '中伏');
+        assert.equal(oc.isSanpuku(oc.juliusDate(new Date(2016,7,16,1,23))), '末伏');
+    });
 });
 describe('isNyubai', function () {
     it('should return if it is nyubai', function () {
@@ -397,6 +416,9 @@ describe('isNyubai', function () {
         assert.equal(oc.isNyubai(oc.juliusDate(new Date(2014,5,10))), false);
         assert.equal(oc.isNyubai(oc.juliusDate(new Date(2014,5,11))), true);
         assert.equal(oc.isNyubai(oc.juliusDate(new Date(2014,5,12))), false);
+    });
+    it('works fine with date not at 0:00AM', function () {
+        assert.equal(oc.isNyubai(oc.juliusDate(new Date(2016,5,10,1,23))), true);
     });
 });
 describe('isHangesyo', function () {
@@ -409,6 +431,9 @@ describe('isHangesyo', function () {
         assert.equal(oc.isHangesyo(oc.juliusDate(new Date(2016,6,1))), true);
         assert.equal(oc.isHangesyo(oc.juliusDate(new Date(2016,6,2))), false);
     });
+    it('works fine with date not at 0:00AM', function () {
+        assert.equal(oc.isHangesyo(oc.juliusDate(new Date(2016,6,1,1,23))), true);
+    });
 });
 describe('isDoyoStart', function () {
     it('should return if it is the start day of doyo', function () {
@@ -420,6 +445,12 @@ describe('isDoyoStart', function () {
         assert.equal(oc.isDoyoStart(oc.juliusDate(new Date(2014,6,20))), '夏土用入');
         assert.equal(oc.isDoyoStart(oc.juliusDate(new Date(2014,9,20))), '秋土用入');
     });
+    it('works fine with date not at 0:00AM', function () {
+        assert.equal(oc.isDoyoStart(oc.juliusDate(new Date(2014,0,17,1,23))), '冬土用入');
+        assert.equal(oc.isDoyoStart(oc.juliusDate(new Date(2014,3,17,1,23))), '春土用入');
+        assert.equal(oc.isDoyoStart(oc.juliusDate(new Date(2014,6,20,1,23))), '夏土用入');
+        assert.equal(oc.isDoyoStart(oc.juliusDate(new Date(2014,9,20,1,23))), '秋土用入');
+    });
 });
 describe('isDoyoEnd', function () {
     it('should return if it is the end day of doyo', function () {
@@ -427,6 +458,12 @@ describe('isDoyoEnd', function () {
         assert.equal(oc.isDoyoEnd(oc.juliusDate(new Date(2014,1,3))), '冬土用明');
         assert.equal(oc.isDoyoEnd(oc.juliusDate(new Date(2014,1,4))), '');    
         
+        assert.equal(oc.isDoyoEnd(oc.juliusDate(new Date(2014,4,4,1,23))), '春土用明');
+        assert.equal(oc.isDoyoEnd(oc.juliusDate(new Date(2014,7,6,1,23))), '夏土用明');
+        assert.equal(oc.isDoyoEnd(oc.juliusDate(new Date(2014,10,6,1,23))), '秋土用明');
+    });
+    it('works fine with date not at 0:00AM', function () {
+        assert.equal(oc.isDoyoEnd(oc.juliusDate(new Date(2014,1,3))), '冬土用明');
         assert.equal(oc.isDoyoEnd(oc.juliusDate(new Date(2014,4,4))), '春土用明');
         assert.equal(oc.isDoyoEnd(oc.juliusDate(new Date(2014,7,6))), '夏土用明');
         assert.equal(oc.isDoyoEnd(oc.juliusDate(new Date(2014,10,6))), '秋土用明');
@@ -453,12 +490,18 @@ describe('isDaysFromRissyun', function () {
         assert.equal(oc.isDaysFromRissyun(220, oc.juliusDate(new Date(2018,8,11))), true);
         assert.equal(oc.isDaysFromRissyun(220, oc.juliusDate(new Date(2019,8,11))), true);
     });
+    it('works fine with date not at 0:00AM', function () {
+        assert.equal(oc.isDaysFromRissyun(210, oc.juliusDate(new Date(2016,7,31,1,23))), true);
+    });
 });
 describe('isJippouGureStart', function () {
     it('should return if it is the start day of jippou gure', function () {
         assert.equal(oc.isJippouGureStart(oc.juliusDate(new Date(2014, 4, 12))), false);
         assert.equal(oc.isJippouGureStart(oc.juliusDate(new Date(2014, 4, 13))), true);
         assert.equal(oc.isJippouGureStart(oc.juliusDate(new Date(2014, 4, 14))), false);
+    });
+    it('works fine with date not at 0:00AM', function () {
+        assert.equal(oc.isJippouGureStart(oc.juliusDate(new Date(2014, 4, 13,1,23))), true);
     });
 });
 describe('isJippouGureEnd', function () {
@@ -467,6 +510,9 @@ describe('isJippouGureEnd', function () {
         assert.equal(oc.isJippouGureEnd(oc.juliusDate(new Date(2014, 4, 22))), true);
         assert.equal(oc.isJippouGureEnd(oc.juliusDate(new Date(2014, 4, 23))), false);
     });
+    it('works fine with date not at 0:00AM', function () {
+        assert.equal(oc.isJippouGureEnd(oc.juliusDate(new Date(2014, 4, 22,1,23))), true);
+    });
 });
 describe('isTenichiTenjoStart', function () {
     it('should return if it is the start day of tenichi tenjo', function () {
@@ -474,12 +520,18 @@ describe('isTenichiTenjoStart', function () {
         assert.equal(oc.isTenichiTenjoStart(oc.juliusDate(new Date(2014, 4, 22))), true);
         assert.equal(oc.isTenichiTenjoStart(oc.juliusDate(new Date(2014, 4, 23))), false);
     });
+    it('works fine with date not at 0:00AM', function () {
+        assert.equal(oc.isTenichiTenjoStart(oc.juliusDate(new Date(2014, 4, 22,1,23))), true);
+    });
 });
 describe('isTenichiTenjoEnd', function () {
     it('should return if it is the end day of tenichi tenjo', function () {
         assert.equal(oc.isTenichiTenjoEnd(oc.juliusDate(new Date(2014, 5, 5))), false);
         assert.equal(oc.isTenichiTenjoEnd(oc.juliusDate(new Date(2014, 5, 6))), true);
         assert.equal(oc.isTenichiTenjoEnd(oc.juliusDate(new Date(2014, 5, 7))), false);
+    });
+    it('works fine with date not at 0:00AM', function () {
+        assert.equal(oc.isTenichiTenjoEnd(oc.juliusDate(new Date(2014, 5, 6,1,23))), true);
     });
 });
 describe('isIchiryuManbai', function () {
@@ -490,6 +542,9 @@ describe('isIchiryuManbai', function () {
         
         assert.equal(oc.isIchiryuManbai(oc.juliusDate(new Date(2016,0,10))), true, '2016/1/10 も'); 
     });
+    it('works fine with date not at 0:00AM', function () {
+        assert.equal(oc.isIchiryuManbai(oc.juliusDate(new Date(2016,0,7,1,23))), true, '2016/1/7 は一粒万倍日');
+    });
 });
 describe('isTensya', function () {
     it('should return if it is tensya day', function () {
@@ -497,12 +552,18 @@ describe('isTensya', function () {
         assert.equal(oc.isTensya(oc.juliusDate(new Date(2016, 1, 26))), true);
         assert.equal(oc.isTensya(oc.juliusDate(new Date(2016, 1, 27))), false);
     });
+    it('works fine with date not at 0:00AM', function () {
+        assert.equal(oc.isTensya(oc.juliusDate(new Date(2016, 1, 26,1,23))), true);
+    });
 });
 describe('isFujoju', function () {
     it('should return if it is fujoju day', function () {
         assert.equal(oc.isFujoju(oc.oldCalendar(oc.juliusDate(new Date(2016, 0, 7)))), false);
         assert.equal(oc.isFujoju(oc.oldCalendar(oc.juliusDate(new Date(2016, 0, 8)))), true, '2016/01/08 は不成就日');
         assert.equal(oc.isFujoju(oc.oldCalendar(oc.juliusDate(new Date(2016, 0, 9)))), false);
+    });
+    it('works fine with date not at 0:00AM', function () {
+        assert.equal(oc.isFujoju(oc.oldCalendar(oc.juliusDate(new Date(2016, 0, 8,1,23)))), true, '2016/01/08 は不成就日');
     });
 });
 describe('isHassen', function () {
@@ -517,11 +578,17 @@ describe('isHassen', function () {
         assert.equal(oc.isHassen(oc.juliusDate(new Date(2014, 3, 23))), false);
         assert.equal(oc.isHassen(oc.juliusDate(new Date(2014, 3, 24))), false);
     });
+    it('works fine with date not at 0:00AM', function () {
+        assert.equal(oc.isHassen(oc.juliusDate(new Date(2014, 3, 16,1,23))), true);
+    });
 });
 describe('isSanrinbou', function () {
     it('should return if it is sanrinbou', function () {
         assert.equal(oc.isSanrinbou(oc.juliusDate(new Date(2016, 0, 12))), false);
         assert.equal(oc.isSanrinbou(oc.juliusDate(new Date(2016, 0, 13))), true, '2016/1/13は三輪宝');
         assert.equal(oc.isSanrinbou(oc.juliusDate(new Date(2016, 0, 14))), false);
+    });
+    it('works fine with date not at 0:00AM', function () {
+        assert.equal(oc.isSanrinbou(oc.juliusDate(new Date(2016, 0, 13,1,23))), true, '2016/1/13は三輪宝');
     });
 });
