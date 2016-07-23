@@ -1093,6 +1093,18 @@ if (typeof module != "undefined") {
         isTensya: isTensya,
         isFujoju: isFujoju,
         isHassen: isHassen,
-        isSanrinbou: isSanrinbou, 
+        isSanrinbou: isSanrinbou,
+        tagsForDate: tagsForDate,
+        heiseiYear: heiseiYear,
+        jaMonth: jaMonth,
+        isSameDay: isSameDay,
+        allRokkis: allRokkis,
+        allEtos: allEtos,
+        allKyuseis: allKyuseis,
+        allChokus: allChokus,
+        allShukus: allShukus,
+        allNattins: allNattins,
+
+        Moon: Moon, 
     };
 }
