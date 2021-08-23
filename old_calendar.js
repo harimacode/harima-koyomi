@@ -216,7 +216,7 @@ function findNibunNishi(t) {
  */
 function findSeason(jd) {
     var sekki = findSekki(jd+1, 90, 45);
-    angle = sekki[0];
+    var angle = sekki[0];
     // alert(angle);
     angle += 45;
     while (angle >= 360) {
@@ -936,8 +936,11 @@ function sekku(date) {
 }
 
 // monthly.js でしか使わないが、旧暦と関連するロジック
-function heiseiYear(y) {
-    return "平成" + (y - 1988) + "年";
+function jaYear(d) {
+    return d.toLocaleDateString("ja-JP-u-ca-japanese", {
+        era: "short",
+        year: "numeric",
+    });
 }
 function jaMonth(m) {
     var kJaNames = [
@@ -1095,7 +1098,7 @@ if (typeof module != "undefined") {
         isHassen: isHassen,
         isSanrinbou: isSanrinbou,
         tagsForDate: tagsForDate,
-        heiseiYear: heiseiYear,
+        jaYear: jaYear,
         jaMonth: jaMonth,
         isSameDay: isSameDay,
         allRokkis: allRokkis,
