@@ -216,7 +216,7 @@ function findNibunNishi(t) {
  */
 function findSeason(jd) {
     var sekki = findSekki(jd+1, 90, 45);
-    angle = sekki[0];
+    var angle = sekki[0];
     // alert(angle);
     angle += 45;
     while (angle >= 360) {
